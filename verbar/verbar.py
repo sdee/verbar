@@ -1,6 +1,6 @@
 __author__ = 'sutee'
 from conjugation import *
-import random
+import random, argparse
 from enum import Enum
 
 from collections import namedtuple
@@ -8,7 +8,7 @@ from collections import namedtuple
 verbs = ['hablar', 'ir', 'dormir']
 #maps pronouns and tenses to conventions used for keys in conjugation library
 pronouns = {'yo': '1', 'tu': '2', 'el': '3', 'nosotros': '4', 'ellos': '6' }
-tenses = {'present': 'pre'}
+tenses = {'present': 'pre', 'past': 'pas', 'future': 'fut'}
 
 class IrregularityChoice(Enum):
     all = 1 #
@@ -81,6 +81,8 @@ def next_question():
 
 if __name__ == "__main__":
     _main()
+    parser = argparse.ArgumentParser(description='verbar')
+    parser.add_argument('-D', '--recipe_dir', help='bar help')
 
 #list of verbs, each item is tuple of (verb, dict of tense->irregularity)
 # print len(irregular_verbs.items()[1][1].keys())
