@@ -10,14 +10,13 @@ verbs = ['hablar', 'ir', 'dormir']
 pronouns = {'yo': '1', 'tu': '2', 'el': '3', 'nosotros': '4', 'ellos': '6' }
 tenses = {'present': 'pre'}
 
-
 class IrregularityChoice(Enum):
     all = 1 #
     none = 2
     bycase =3
 
 def _main():
-    generate_conjugation()
+    next_question()
 
 def choose_verb():
     verb = random.choice(verbs)
@@ -55,7 +54,7 @@ def is_irregular_here(verb, pronoun, tense):
         return False
 
 def generate_conjugation():
-    irregularity_setting = IrregularityChoice.bycase
+    irregularity_setting = IrregularityChoice.all
     pronoun = choose_pronoun()
     tense = choose_tense()
     verb = choose_verb()
@@ -64,15 +63,21 @@ def generate_conjugation():
         irregular = is_irregular(verb, pronoun, tense, irregularity_setting)
         if irregular: #if irregular, try again
             return generate_conjugation()
-
     key = generate_key(pronoun, tense)
-    print key
     conjugation = conjugate(verb)
-    question = verb, pronoun[0], tense[0]
+    question = pronoun[0], verb, tense[0]
     answer = conjugation[key]
     print "Question:", question
     print "Answer:", answer
     return (question, answer)
+
+def next_question():
+    question, answer = generate_conjugation()
+    front = ' + '.join(question)
+    back = answer
+    print "Question: "+front
+    print "Answer: "+answer
+    return front, back
 
 if __name__ == "__main__":
     _main()
