@@ -20,6 +20,10 @@ var QuizStore = Fluxxor.createStore({
           questions: this.quiz.questions
         };
     },
+    handleNextQuestion: function() {
+        console.log("handle next question");
+        this.emit("change");
+    },
     onLoadQuiz: function() {
         this.loading = true;
         this.emit("change");
