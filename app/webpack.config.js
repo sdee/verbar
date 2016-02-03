@@ -1,17 +1,22 @@
 var webpack = require("webpack");
 
-module.exports = {
-    cache: true,
-    entry: "./app.jsx",
+var config = {
+    cache: false,
+    entry: "./components/application.jsx",
     output: {
         filename: "bundle.js"
     },
     devtool: "source-map",
-    module: {
-        loaders: [
-            { test: /\.less$/, loader: "style!css!less" },
-            { test: /\.jsx$/, loader: "jsx-loader" },
-            { test: /\.json$/, loader: "json" }
-        ]
+module: {
+        loaders: [{
+            test: /\.jsx?$/,
+            loader: 'babel',
+            query:
+            {
+                presets:['es2015', 'react']
+            }
+        }]
     }
 };
+
+module.exports = config;
