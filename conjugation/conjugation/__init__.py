@@ -20,7 +20,6 @@ class Irregular(unicode):
 
 irregular_verbs = {}
 reverse_irregular_verbs = defaultdict(list)
-
 # Irregular verbs forms loading
 with open(path.join(path.dirname(__file__), 'irregular_verbs.txt')) as verbs_file:
     for line in verbs_file:
