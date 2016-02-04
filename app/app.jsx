@@ -3,8 +3,9 @@ var React = require("react"),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Quiz = require("./components/application.jsx"), actions = require("./actions"),
-    QuizStore = require("./stores/quiz_store");
+var Quiz = require("./components/application.jsx"),
+    QuizStore = require("./stores/quiz_store"),
+    actions = require("./actions");
 
 var stores = {
     QuizStore: new QuizStore()

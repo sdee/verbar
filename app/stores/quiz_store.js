@@ -5,6 +5,7 @@ var Fluxxor = require("fluxxor"),
 var QuizStore = Fluxxor.createStore({
     initialize: function(options) {
 
+        this.quiz = {};
         this.questions = [];
         this.loading = false;
 
@@ -25,13 +26,15 @@ var QuizStore = Fluxxor.createStore({
         this.emit("change");
     },
     onLoadQuiz: function() {
+        console.log("loading quiz");
         this.loading = true;
         this.emit("change");
     },
     onLoadQuizSuccess: function(payload) {
+        console.log("load success");
         this.loading = false;
         this.error = null;
-        this.party=payload.quiz;
+        this.quiz = payload.quiz;
         this.emit("change");
     },
     onLoadQuizFail: function(payload) {

@@ -20,9 +20,15 @@ var Quiz = React.createClass({
         this.getFlux().actions.loadQuiz();
       },
     render: function() {
+        var questions = this.state.quiz;
+        console.log("render");
         return (
-            <div id="test"></div>
+
+            <div id="test">Blah....</div>
         );
+    },
+     onNextQuestion: function() {
+        this.getFlux().actions.nextQuestion();
     }
 });
 

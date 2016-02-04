@@ -2,7 +2,7 @@ var Constants = require("./constants"),
 jquery=require("jquery");
 var resp;
 
-var PartyClient = {
+var QuizClient = {
     load: function(success, failure) {
    jquery.ajax({
          url: "quiz.json",
@@ -18,11 +18,11 @@ var PartyClient = {
     }};
 module.exports = {
   loadQuiz: function() {
-  this.dispatch(Constants.LOAD_PARTY);
-  PartyClient.load(function(quiz) {
-    this.dispatch(Constants.LOAD_PARTY_SUCCESS, {quiz:quiz});
+  this.dispatch(Constants.LOAD_QUIZ);
+  QuizClient.load(function(quiz) {
+    this.dispatch(Constants.LOAD_QUIZ_SUCCESS, {quiz:quiz});
   }.bind(this), function(error) {
-    this.dispatch(Constants.LOAD_PARTY_FAIL, {error: error});
+    this.dispatch(Constants.LOAD_QUIZ_FAIL, {error: error});
   }.bind(this));
   },
     nextQuestion: function() {
