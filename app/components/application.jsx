@@ -4,36 +4,25 @@ var React = require("react"),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var ScalingButton = require("./scaling_button.jsx"),
-IngredientList = require("./ingredient_list.jsx"),
-UnitConv = require("../../unitconv/unit.js");
-
-var Party = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("PartyStore")],
+var Quiz = React.createClass({
+    mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
     // Required by StoreWatchMixin
     getStateFromFlux: function() {
         var flux = this.getFlux();
-        var store = this.getFlux().store("PartyStore");
+        var store = this.getFlux().store("QuizStore");
         return {
             loading: store.loading,
             error: store.error,
-            party: store.party
+            quiz: store.quiz
         };
     },
     componentDidMount: function() {
-        this.getFlux().actions.loadParty();
+        this.getFlux().actions.loadQuiz();
       },
     render: function() {
         return (
             <div id="test"></div>
         );
-    },
-    onScaleUp: function() {
-        this.getFlux().actions.scaleUp();
-    },
-
-    onScaleDown: function() {
-        this.getFlux().actions.scaleDown();
     }
 });
 

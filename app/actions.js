@@ -17,7 +17,7 @@ var PartyClient = {
      });
     }};
 module.exports = {
-  loadParty: function() {
+  loadQuiz: function() {
   this.dispatch(Constants.LOAD_PARTY);
   PartyClient.load(function(quiz) {
     this.dispatch(Constants.LOAD_PARTY_SUCCESS, {quiz:quiz});

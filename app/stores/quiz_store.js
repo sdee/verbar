@@ -34,7 +34,7 @@ var QuizStore = Fluxxor.createStore({
         this.party=payload.quiz;
         this.emit("change");
     },
-    onLoadPartyFail: function(payload) {
+    onLoadQuizFail: function(payload) {
         this.loading = false;
         this.error = payload.error;
         this.emit("change");

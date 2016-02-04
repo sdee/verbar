@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 var config = {
     cache: false,
-    entry: "./components/application.jsx",
+    entry: "./app.jsx",
     output: {
         filename: "bundle.js"
     },
@@ -10,11 +10,7 @@ var config = {
 module: {
         loaders: [{
             test: /\.jsx?$/,
-            loader: 'babel',
-            query:
-            {
-                presets:['es2015', 'react']
-            }
+            loader: "jsx-loader"
         }]
     }
 };

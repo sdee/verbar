@@ -1,0 +1,5 @@
+[
+  {"pronoun": "yo", "infinitive": "hablar", "tense": "present", "answer": "hablo"},
+  {"pronoun": "tu", "infinitive": "comer", "tense": "present", "answer": "comes"},
+  {"pronoun": "ellos", "infinitive": "caminar", "tense": "present", "answer": "caminan"}
+]
