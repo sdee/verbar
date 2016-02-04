@@ -23,8 +23,8 @@ var Quiz = React.createClass({
         var questions = this.state.quiz;
         console.log("render");
         return (
-
             <div id="test">Blah....</div>
+            {this.state.currentQuestion.question}
         );
     },
      onNextQuestion: function() {
