@@ -13,18 +13,24 @@ var Quiz = React.createClass({
         return {
             loading: store.loading,
             error: store.error,
-            quiz: store.quiz
+            quiz: store.quiz,
+            currentQuestion: store.currentQuestion
         };
     },
     componentDidMount: function() {
         this.getFlux().actions.loadQuiz();
       },
     render: function() {
+        console.log("STATE");
+        console.log(this.state);
         var questions = this.state.quiz;
-        console.log("render");
+        console.log(questions);
+        var curr = this.state.currentQuestion;
         return (
-            <div id="test">Blah....</div>
-            {this.state.currentQuestion.question}
+            <div id="test">
+            Question: {curr}
+            </div>
+
         );
     },
      onNextQuestion: function() {

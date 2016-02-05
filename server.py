@@ -23,4 +23,4 @@ def recipe_handler():
     return Response(json.dumps(quiz), mimetype='application/json', headers={'Cache-Control': 'no-cache'})
 
 if __name__ == '__main__':
-    app.run(port=int(os.environ.get("PORT",3000)))
+    app.run(port=int(os.environ.get("PORT", 3000)))

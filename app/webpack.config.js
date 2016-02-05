@@ -7,12 +7,12 @@ var config = {
         filename: "bundle.js"
     },
     devtool: "source-map",
-module: {
+    module: {
         loaders: [{
             test: /\.jsx?$/,
             loader: "jsx-loader",
-        }, { test: /\.less$/, loader: "style!css!less" },
-            { test: /\.json$/, loader: "json" }]
+        }, {test: /\.less$/, loader: "style!css!less"},
+            {test: /\.json$/, loader: "json"}]
     }
 };
 

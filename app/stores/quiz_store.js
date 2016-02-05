@@ -19,8 +19,7 @@ var QuizStore = Fluxxor.createStore({
     },
     getState: function() {
         return {
-          questions: this.quiz.questions,
-            currentQuestion: this.currentQuestion
+          questions: this.quiz.questions, currentQuestion: this.currentQuestion
         };
     },
     handleNextQuestion: function() {
