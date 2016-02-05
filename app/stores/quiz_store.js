@@ -6,7 +6,7 @@ var QuizStore = Fluxxor.createStore({
     initialize: function(options) {
 
         this.quiz = {};
-        this.currentQuestion = {"question": "question", "answer": "answer"}; //display
+        this.currentQuestion = {"question": "question1", "answer": "answer1"}; //display
         this.questions = [];
         this.loading = false;
 
@@ -24,7 +24,7 @@ var QuizStore = Fluxxor.createStore({
     },
     handleNextQuestion: function() {
         console.log("handle next question");
-
+        this.currentQuestion = {"question": "question2", "answer": "answer2"}
         this.emit("change");
     },
     onLoadQuiz: function() {

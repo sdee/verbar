@@ -4,6 +4,8 @@ var React = require("react"),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
+var Ctrls = require("./controls.jsx");
+
 var Quiz = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
     // Required by StoreWatchMixin
@@ -29,7 +31,10 @@ var Quiz = React.createClass({
         return (
             <div id="test">
             Question: {curr}
+                <Ctrls onNextQuestion={this.onNextQuestion}/>
             </div>
+
+
 
         );
     },
