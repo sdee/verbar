@@ -8,9 +8,10 @@ var QuizStore = Fluxxor.createStore({
         this.currentQuestion = {"text": "message"}; //display
         this.questions = [];
         this.loading = false;
-
+        this.showAnswer = false;
         this.bindActions(
             Constants.NEXT_QUESTION, this.handleNextQuestion,
+            Constants.SHOW_ANSWER, this.onShowAnswer,
             Constants.LOAD_QUIZ, this.onLoadQuiz,
             Constants.LOAD_QUIZ_SUCCESS, this.onLoadQuizSuccess,
             Constants.LOAD_QUIZ_FAIL, this.onLoadQuizFail
@@ -18,12 +19,13 @@ var QuizStore = Fluxxor.createStore({
     },
     getState: function() {
         return {
-          questions: this.quiz.questions, currentQuestion: this.currentQuestion
+          questions: this.quiz.questions, currentQuestion: this.currentQuestion, showAnswer: this.showAnswer
         };
     },
     handleNextQuestion: function() {
         console.log("handle next question");
-        var newQuestion =this.quiz[Math.floor(Math.random()*this.quiz.length)];
+        this.showAnswer = false;
+        var newQuestion = this.quiz[Math.floor(Math.random()*this.quiz.length)];
         console.log(newQuestion);
         this.currentQuestion = newQuestion;
         this.emit("change");
@@ -44,6 +46,12 @@ var QuizStore = Fluxxor.createStore({
     onLoadQuizFail: function(payload) {
         this.loading = false;
         this.error = payload.error;
+        this.emit("change");
+    },
+    //rename flip
+    onShowAnswer: function(payload){
+        console.log("show answer");
+        this.showAnswer = !this.showAnswer;
         this.emit("change");
     }
 });

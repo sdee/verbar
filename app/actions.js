@@ -27,5 +27,8 @@ module.exports = {
   },
     nextQuestion: function() {
         this.dispatch(Constants.NEXT_QUESTION);
+    },
+    showAnswer: function() {
+        this.dispatch(Constants.SHOW_ANSWER);
     }
 };

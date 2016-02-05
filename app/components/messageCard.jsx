@@ -2,7 +2,7 @@ React = require("react");
 
 var MsgCard = React.createClass({
    propTypes: {
-      msg: React.PropTypes.string.isRequired,
+      msg: React.PropTypes.string.isRequired
    },
        getInitialState: function() {
            return { };

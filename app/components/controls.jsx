@@ -2,7 +2,8 @@ React = require("react");
 
 var Controls = React.createClass({
     propTypes: {
-        onNextQuestion: React.PropTypes.func.isRequired
+        onNextQuestion:  React.PropTypes.func.isRequired,
+        onShowAnswer:  React.PropTypes.func.isRequired
     },
     getInitialState: function() {
         return { };
@@ -12,6 +13,9 @@ var Controls = React.createClass({
             <div>
             <a className="nextquestion" href="#"
                   onClick={this.props.onNextQuestion}>Next</a>
+
+                <a className="showanswer" href="#"
+                  onClick={this.props.onShowAnswer}>Flip</a>
             </div>
         );
     }

@@ -6,6 +6,7 @@ var React = require("react"),
 
 var MsgCard = require("./messageCard.jsx"),
     VerbCard = require("./verbCard.jsx"),
+    AnswerCard = require("./answerCard.jsx")
     Ctrls = require("./controls.jsx");
 
 var Quiz = React.createClass({
@@ -18,6 +19,7 @@ var Quiz = React.createClass({
             loading: store.loading,
             error: store.error,
             quiz: store.quiz,
+            showAnswer: store.showAnswer,
             currentQuestion: store.currentQuestion
         };
     },
@@ -25,12 +27,20 @@ var Quiz = React.createClass({
         this.getFlux().actions.loadQuiz();
       },
     render: function() {
+        console.log("rendering");
+        console.log(this.state);
         var questions = this.state.quiz;
         console.log(questions);
         var curr = this.state.currentQuestion;
         var card;
-        if (curr.infinitive){
-            card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />
+        console.log("show answer");
+        console.log(this.state.showAnswer);
+        if (curr.infinitive && this.state.showAnswer===false){
+
+            card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
+        }
+        else if (curr.infinitive) {
+            card = <AnswerCard answer={curr.answer}/>;
         }
         else {
             card = <MsgCard msg = {curr.text}/>
@@ -39,13 +49,16 @@ var Quiz = React.createClass({
         return (
             <div id="test">
             {card}
-                <Ctrls onNextQuestion={this.onNextQuestion}/>
+                <Ctrls onNextQuestion={this.onNextQuestion} onShowAnswer={this.onShowAnswer}/>
             </div>
 
         );
     },
      onNextQuestion: function() {
         this.getFlux().actions.nextQuestion();
+    },
+    onShowAnswer: function() {
+        this.getFlux().actions.showAnswer();
     }
 });
 
