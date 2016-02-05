@@ -5,7 +5,7 @@ var Fluxxor = require("fluxxor"),
 var QuizStore = Fluxxor.createStore({
     initialize: function(options) {
         this.quiz = [];
-        this.currentQuestion = {"question": "question1", "answer": "answer1", "infinitive": "test"}; //display
+        this.currentQuestion = {"text": "message"}; //display
         this.questions = [];
         this.loading = false;
 

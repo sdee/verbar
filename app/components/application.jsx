@@ -4,7 +4,9 @@ var React = require("react"),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
-var Ctrls = require("./controls.jsx");
+var MsgCard = require("./messageCard.jsx"),
+    VerbCard = require("./verbCard.jsx"),
+    Ctrls = require("./controls.jsx");
 
 var Quiz = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
@@ -23,16 +25,23 @@ var Quiz = React.createClass({
         this.getFlux().actions.loadQuiz();
       },
     render: function() {
-        console.log("STATE");
-        console.log(this.state);
         var questions = this.state.quiz;
         console.log(questions);
         var curr = this.state.currentQuestion;
+        var card;
+        if (curr.infinitive){
+            card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />
+        }
+        else {
+            card = <MsgCard msg = {curr.text}/>
+        }
+
         return (
             <div id="test">
-            Question: {curr.infinitive}
+            {card}
                 <Ctrls onNextQuestion={this.onNextQuestion}/>
             </div>
+
         );
     },
      onNextQuestion: function() {

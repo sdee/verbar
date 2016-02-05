@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(1);
-	module.exports = __webpack_require__(341);
+	module.exports = __webpack_require__(343);
 
 
 /***/ },
@@ -59,8 +59,8 @@
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
 	var Quiz = __webpack_require__(255),
-	    QuizStore = __webpack_require__(337),
-	    actions = __webpack_require__(340);
+	    QuizStore = __webpack_require__(339),
+	    actions = __webpack_require__(342);
 	
 	var stores = {
 	    QuizStore: new QuizStore()
@@ -25079,7 +25079,9 @@
 	    FluxMixin = Fluxxor.FluxMixin(React),
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
-	var Ctrls = __webpack_require__(336);
+	var MsgCard = __webpack_require__(336),
+	    VerbCard = __webpack_require__(337),
+	    Ctrls = __webpack_require__(338);
 	
 	var Quiz = React.createClass({displayName: "Quiz",
 	    mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
@@ -25098,16 +25100,23 @@
 	        this.getFlux().actions.loadQuiz();
 	      },
 	    render: function() {
-	        console.log("STATE");
-	        console.log(this.state);
 	        var questions = this.state.quiz;
 	        console.log(questions);
 	        var curr = this.state.currentQuestion;
+	        var card;
+	        if (curr.infinitive){
+	            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense})
+	        }
+	        else {
+	            card = React.createElement(MsgCard, {msg: curr.text})
+	        }
+	
 	        return (
 	            React.createElement("div", {id: "test"}, 
-	            "Question: ", curr.infinitive, 
+	            card, 
 	                React.createElement(Ctrls, {onNextQuestion: this.onNextQuestion})
 	            )
+	
 	        );
 	    },
 	     onNextQuestion: function() {
@@ -34293,6 +34302,48 @@
 
 	React = __webpack_require__(2);
 	
+	var MsgCard = React.createClass({displayName: "MsgCard",
+	   propTypes: {
+	      msg: React.PropTypes.string.isRequired,
+	   },
+	       getInitialState: function() {
+	           return { };
+	       },
+	       render: function() {
+	       return (React.createElement("div", null, " ", this.props.msg));
+	       }
+	});
+	
+	module.exports = MsgCard;
+
+/***/ },
+/* 337 */
+/***/ function(module, exports, __webpack_require__) {
+
+	React = __webpack_require__(2);
+	
+	var VerbCard = React.createClass({displayName: "VerbCard",
+	   propTypes: {
+	      infinitive: React.PropTypes.string.isRequired,
+	       pronoun: React.PropTypes.string.isRequired,
+	       tense:  React.PropTypes.string.isRequired
+	   },
+	       getInitialState: function() {
+	           return { };
+	       },
+	       render: function() {
+	       return (React.createElement("div", null, " ", this.props.pronoun, ", ", React.createElement("b", null, this.props.infinitive), "(", this.props.tense, ")"));
+	       }
+	});
+	
+	module.exports = VerbCard;
+
+/***/ },
+/* 338 */
+/***/ function(module, exports, __webpack_require__) {
+
+	React = __webpack_require__(2);
+	
 	var Controls = React.createClass({displayName: "Controls",
 	    propTypes: {
 	        onNextQuestion: React.PropTypes.func.isRequired
@@ -34312,19 +34363,18 @@
 	
 	module.exports = Controls;
 
-
 /***/ },
-/* 337 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(158),
-	    Constants = __webpack_require__(338),
-	    jquery=__webpack_require__(339);
+	    Constants = __webpack_require__(340),
+	    jquery=__webpack_require__(341);
 	
 	var QuizStore = Fluxxor.createStore({
 	    initialize: function(options) {
 	        this.quiz = [];
-	        this.currentQuestion = {"question": "question1", "answer": "answer1", "infinitive": "test"}; //display
+	        this.currentQuestion = {"text": "message"}; //display
 	        this.questions = [];
 	        this.loading = false;
 	
@@ -34370,7 +34420,7 @@
 	module.exports = QuizStore;
 
 /***/ },
-/* 338 */
+/* 340 */
 /***/ function(module, exports) {
 
 	module.exports ={
@@ -34381,7 +34431,7 @@
 	}
 
 /***/ },
-/* 339 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -43597,11 +43647,11 @@
 
 
 /***/ },
-/* 340 */
+/* 342 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Constants = __webpack_require__(338),
-	jquery=__webpack_require__(339);
+	var Constants = __webpack_require__(340),
+	jquery=__webpack_require__(341);
 	var resp;
 	
 	var QuizClient = {
@@ -43634,7 +43684,7 @@
 
 
 /***/ },
-/* 341 */
+/* 343 */
 /***/ function(module, exports) {
 
 	/******/ (function(modules) { // webpackBootstrap
@@ -43685,7 +43735,7 @@
 	
 		__webpack_require__(1);
 		__webpack_require__(1);
-		module.exports = __webpack_require__(341);
+		(function webpackMissingModule() { throw new Error("Cannot find module \"bundle.js\""); }());
 	
 	
 	/***/ },
@@ -43698,8 +43748,8 @@
 		    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 		
 		var Quiz = __webpack_require__(255),
-		    QuizStore = __webpack_require__(337),
-		    actions = __webpack_require__(340);
+		    QuizStore = __webpack_require__(339),
+		    actions = __webpack_require__(342);
 		
 		var stores = {
 		    QuizStore: new QuizStore()
@@ -68718,7 +68768,9 @@
 		    FluxMixin = Fluxxor.FluxMixin(React),
 		    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 		
-		var Ctrls = __webpack_require__(336);
+		var MsgCard = __webpack_require__(336),
+		    VerbCard = __webpack_require__(337),
+		    Ctrls = __webpack_require__(338);
 		
 		var Quiz = React.createClass({displayName: "Quiz",
 		    mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
@@ -68737,16 +68789,23 @@
 		        this.getFlux().actions.loadQuiz();
 		      },
 		    render: function() {
-		        console.log("STATE");
-		        console.log(this.state);
 		        var questions = this.state.quiz;
 		        console.log(questions);
 		        var curr = this.state.currentQuestion;
+		        var card;
+		        if (curr.infinitive){
+		            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense})
+		        }
+		        else {
+		            card = React.createElement(MsgCard, {msg: curr.text})
+		        }
+		
 		        return (
 		            React.createElement("div", {id: "test"}, 
-		            "Question: ", curr.infinitive, 
+		            card, 
 		                React.createElement(Ctrls, {onNextQuestion: this.onNextQuestion})
 		            )
+		
 		        );
 		    },
 		     onNextQuestion: function() {
@@ -77932,6 +77991,48 @@
 	
 		React = __webpack_require__(2);
 		
+		var MsgCard = React.createClass({displayName: "MsgCard",
+		   propTypes: {
+		      msg: React.PropTypes.string.isRequired,
+		   },
+		       getInitialState: function() {
+		           return { };
+		       },
+		       render: function() {
+		       return (React.createElement("div", null, " ", this.props.msg));
+		       }
+		});
+		
+		module.exports = MsgCard;
+	
+	/***/ },
+	/* 337 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		React = __webpack_require__(2);
+		
+		var VerbCard = React.createClass({displayName: "VerbCard",
+		   propTypes: {
+		      infinitive: React.PropTypes.string.isRequired,
+		       pronoun: React.PropTypes.string.isRequired,
+		       tense:  React.PropTypes.string.isRequired
+		   },
+		       getInitialState: function() {
+		           return { };
+		       },
+		       render: function() {
+		       return (React.createElement("div", null, " ", this.props.pronoun, ", ", React.createElement("b", null, this.props.infinitive), "(", this.props.tense, ")"));
+		       }
+		});
+		
+		module.exports = VerbCard;
+	
+	/***/ },
+	/* 338 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		React = __webpack_require__(2);
+		
 		var Controls = React.createClass({displayName: "Controls",
 		    propTypes: {
 		        onNextQuestion: React.PropTypes.func.isRequired
@@ -77951,19 +78052,18 @@
 		
 		module.exports = Controls;
 	
-	
 	/***/ },
-	/* 337 */
+	/* 339 */
 	/***/ function(module, exports, __webpack_require__) {
 	
 		var Fluxxor = __webpack_require__(158),
-		    Constants = __webpack_require__(338),
-		    jquery=__webpack_require__(339);
+		    Constants = __webpack_require__(340),
+		    jquery=__webpack_require__(341);
 		
 		var QuizStore = Fluxxor.createStore({
 		    initialize: function(options) {
 		        this.quiz = [];
-		        this.currentQuestion = {"question": "question1", "answer": "answer1", "infinitive": "test"}; //display
+		        this.currentQuestion = {"text": "message"}; //display
 		        this.questions = [];
 		        this.loading = false;
 		
@@ -77983,6 +78083,7 @@
 		        console.log("handle next question");
 		        var newQuestion =this.quiz[Math.floor(Math.random()*this.quiz.length)];
 		        console.log(newQuestion);
+		        this.currentQuestion = newQuestion;
 		        this.emit("change");
 		    },
 		    onLoadQuiz: function() {
@@ -78008,7 +78109,7 @@
 		module.exports = QuizStore;
 	
 	/***/ },
-	/* 338 */
+	/* 340 */
 	/***/ function(module, exports) {
 	
 		module.exports ={
@@ -78019,7 +78120,7 @@
 		}
 	
 	/***/ },
-	/* 339 */
+	/* 341 */
 	/***/ function(module, exports, __webpack_require__) {
 	
 		var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -87235,11 +87336,11 @@
 	
 	
 	/***/ },
-	/* 340 */
+	/* 342 */
 	/***/ function(module, exports, __webpack_require__) {
 	
-		var Constants = __webpack_require__(338),
-		jquery=__webpack_require__(339);
+		var Constants = __webpack_require__(340),
+		jquery=__webpack_require__(341);
 		var resp;
 		
 		var QuizClient = {
@@ -87269,12 +87370,6 @@
 		        this.dispatch(Constants.NEXT_QUESTION);
 		    }
 		};
-	
-	
-	/***/ },
-	/* 341 */
-	/***/ function(module, exports) {
-	
 	
 	
 	/***/ }
