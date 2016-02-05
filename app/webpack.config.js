@@ -10,8 +10,7 @@ var config = {
     module: {
         loaders: [{
             test: /\.jsx?$/,
-            loader: "jsx-loader",
-        }, {test: /\.less$/, loader: "style!css!less"},
+            loader: "jsx-loader"}, {test: /\.less$/, loader: "style!css!less"},
             {test: /\.json$/, loader: "json"}]
     }
 };

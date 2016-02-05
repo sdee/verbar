@@ -4,9 +4,8 @@ var Fluxxor = require("fluxxor"),
 
 var QuizStore = Fluxxor.createStore({
     initialize: function(options) {
-
-        this.quiz = {};
-        this.currentQuestion = {"question": "question1", "answer": "answer1"}; //display
+        this.quiz = [];
+        this.currentQuestion = {"question": "question1", "answer": "answer1", "infinitive": "test"}; //display
         this.questions = [];
         this.loading = false;
 
@@ -24,7 +23,9 @@ var QuizStore = Fluxxor.createStore({
     },
     handleNextQuestion: function() {
         console.log("handle next question");
-        this.currentQuestion = {"question": "question2", "answer": "answer2"}
+        var newQuestion =this.quiz[Math.floor(Math.random()*this.quiz.length)];
+        console.log(newQuestion);
+        this.currentQuestion = newQuestion;
         this.emit("change");
     },
     onLoadQuiz: function() {
@@ -34,6 +35,7 @@ var QuizStore = Fluxxor.createStore({
     },
     onLoadQuizSuccess: function(payload) {
         console.log("load success");
+        console.log(payload);
         this.loading = false;
         this.error = null;
         this.quiz = payload.quiz;

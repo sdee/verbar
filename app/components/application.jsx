@@ -30,12 +30,9 @@ var Quiz = React.createClass({
         var curr = this.state.currentQuestion;
         return (
             <div id="test">
-            Question: {curr}
+            Question: {curr.infinitive}
                 <Ctrls onNextQuestion={this.onNextQuestion}/>
             </div>
-
-
-
         );
     },
      onNextQuestion: function() {
