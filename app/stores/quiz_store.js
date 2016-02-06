@@ -26,8 +26,9 @@ var QuizStore = Fluxxor.createStore({
             showAnswer: this.showAnswer
         };
     },
-    handleNextQuestion: function() {
+    handleNextQuestion: function(enableIrregular, useVosotros) {
         console.log("handle next question");
+        console.log(enableIrregular);
         this.showAnswer = false;
         var randIdx = Math.floor(Math.random()*this.quiz.length);
         var newQuestion = this.quiz[randIdx];

@@ -1,8 +1,7 @@
 var React = require("react"),
     Fluxxor = require("fluxxor"),
     ReactBootstrap = require("react-bootstrap")
-    FluxMixin = Fluxxor.FluxMixin(React),
-        Constants = require("../constants"),
+    FluxMixin = Fluxxor.FluxMixin(React), Constants = require("../constants"),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var MsgCard = require("./messageCard.jsx"),
@@ -11,17 +10,22 @@ var MsgCard = require("./messageCard.jsx"),
     Ctrls = require("./controls.jsx");
 
 var Quiz = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
+    mixins: [FluxMixin, StoreWatchMixin("QuizStore", "FilterStore")],
     // Required by StoreWatchMixin
     getStateFromFlux: function() {
         var flux = this.getFlux();
-        var store = this.getFlux().store("QuizStore");
+        var QuizStore = this.getFlux().store("QuizStore");
+        var FilterStore = this.getFlux().store("FilterStore");
+        console.log("FILTER");
+        console.log(FilterStore);
         return {
-            loading: store.loading,
-            error: store.error,
-            quiz: store.quiz,
-            showAnswer: store.showAnswer,
-            currentQuestion: store.currentQuestion
+            loading: QuizStore.loading,
+            error: QuizStore.error,
+            quiz: QuizStore.quiz,
+            showAnswer: QuizStore.showAnswer,
+            currentQuestion: QuizStore.currentQuestion,
+            useVosotros: FilterStore.useVosotros,
+            enableIrregular: FilterStore.enableIrregular
         };
     },
     componentDidMount: function() {
@@ -55,7 +59,9 @@ var Quiz = React.createClass({
         );
     },
      onNextQuestion: function() {
-        this.getFlux().actions.nextQuestion();
+         console.log("STATE---->");
+         console.log(this.state);
+        this.getFlux().actions.nextQuestion(this.state.enableIrregular, this.state.useVosotros);
     },
     onShowAnswer: function() {
         //pass filters to show answer!

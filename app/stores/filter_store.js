@@ -8,7 +8,7 @@ var FilterStore = Fluxxor.createStore({
         this.enableIrregular = true;
         this.useVosotros = false;
         this.bindActions(
-            Constants.TOGGLE_VOSOTROS, this.toggleVosotros(),
+            Constants.TOGGLE_VOSOTROS, this.toggleVosotros,
             Constants.TOGGLE_IRREGULAR, this.toggleIrregular
         );
     },

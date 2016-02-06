@@ -25,8 +25,8 @@ module.exports = {
     this.dispatch(Constants.LOAD_QUIZ_FAIL, {error: error});
   }.bind(this));
   },
-    nextQuestion: function() {
-        this.dispatch(Constants.NEXT_QUESTION);
+    nextQuestion: function(enableIrregular, useVosotros) {
+        this.dispatch(Constants.NEXT_QUESTION, {enableIrregular: enableIrregular, useVosotros:useVosotros});
     },
     showAnswer: function() {
         this.dispatch(Constants.SHOW_ANSWER);

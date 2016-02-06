@@ -5,10 +5,12 @@ var React = require("react"),
 
 var Quiz = require("./components/application.jsx"),
     QuizStore = require("./stores/quiz_store"),
+    FilterStore = require("./stores/filter_store"),
     actions = require("./actions");
 
 var stores = {
-    QuizStore: new QuizStore()
+    QuizStore: new QuizStore(),
+    FilterStore: new FilterStore()
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
