@@ -30,5 +30,14 @@ module.exports = {
     },
     showAnswer: function() {
         this.dispatch(Constants.SHOW_ANSWER);
+    },
+    beep: function() { //debugging purpose
+        this.dispatch(Constants.BEEP);
+    },
+    toogleVosotros: function() {
+        this.dispatch(Constants.TOGGLE_VOSOTROS);
+    },
+    toggleIrregular: function() {
+        this.dispatch(Constants.TOGGLE_IRREGULAR);
     }
 };

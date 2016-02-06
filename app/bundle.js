@@ -59,7 +59,7 @@
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
 	var Quiz = __webpack_require__(255),
-	    QuizStore = __webpack_require__(340),
+	    QuizStore = __webpack_require__(341),
 	    actions = __webpack_require__(343);
 	
 	var stores = {
@@ -25077,12 +25077,13 @@
 	    Fluxxor = __webpack_require__(158),
 	    ReactBootstrap = __webpack_require__(256)
 	    FluxMixin = Fluxxor.FluxMixin(React),
+	        Constants = __webpack_require__(336),
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
-	var MsgCard = __webpack_require__(336),
-	    VerbCard = __webpack_require__(337),
-	    AnswerCard = __webpack_require__(338)
-	    Ctrls = __webpack_require__(339);
+	var MsgCard = __webpack_require__(337),
+	    VerbCard = __webpack_require__(338),
+	    AnswerCard = __webpack_require__(339)
+	    Ctrls = __webpack_require__(340);
 	
 	var Quiz = React.createClass({displayName: "Quiz",
 	    mixins: [FluxMixin, StoreWatchMixin("QuizStore")],
@@ -25120,7 +25121,6 @@
 	        else {
 	            card = React.createElement(MsgCard, {msg: curr.text})
 	        }
-	
 	        return (
 	            React.createElement("div", {id: "test"}, 
 	            card, 
@@ -25134,6 +25134,7 @@
 	    },
 	    onShowAnswer: function() {
 	        this.getFlux().actions.showAnswer();
+	        //this.getFlux().actions.beep();
 	    }
 	});
 	
@@ -34311,6 +34312,19 @@
 
 /***/ },
 /* 336 */
+/***/ function(module, exports) {
+
+	module.exports ={
+	    NEXT_QUESTION: "NEXT_QUESTION",
+	    SHOW_ANSWER: "SHOW_ANSWER",
+	    LOAD_QUIZ: "LOAD_QUIZ",
+	    LOAD_QUIZ_SUCCESS: "LOAD_QUIZ_SUCCESS",
+	    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL",
+	    BEEP: "BEEP"
+	}
+
+/***/ },
+/* 337 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2);
@@ -34330,7 +34344,7 @@
 	module.exports = MsgCard;
 
 /***/ },
-/* 337 */
+/* 338 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2);
@@ -34352,7 +34366,7 @@
 	module.exports = VerbCard;
 
 /***/ },
-/* 338 */
+/* 339 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2);
@@ -34372,7 +34386,7 @@
 	module.exports = AnswerCard;
 
 /***/ },
-/* 339 */
+/* 340 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2);
@@ -34401,11 +34415,11 @@
 	module.exports = Controls;
 
 /***/ },
-/* 340 */
+/* 341 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(158),
-	    Constants = __webpack_require__(341),
+	    Constants = __webpack_require__(336),
 	    jquery=__webpack_require__(342);
 	
 	var QuizStore = Fluxxor.createStore({
@@ -34415,6 +34429,8 @@
 	        this.questions = [];
 	        this.loading = false;
 	        this.showAnswer = false;
+	        this.seenQuestions = [];
+	        this.allowIrregulars = false;
 	        this.bindActions(
 	            Constants.NEXT_QUESTION, this.handleNextQuestion,
 	            Constants.SHOW_ANSWER, this.onShowAnswer,
@@ -34425,14 +34441,20 @@
 	    },
 	    getState: function() {
 	        return {
-	          questions: this.quiz.questions, currentQuestion: this.currentQuestion, showAnswer: this.showAnswer
+	          questions: this.quiz.questions,
+	            currentQuestion: this.currentQuestion,
+	            showAnswer: this.showAnswer
 	        };
 	    },
 	    handleNextQuestion: function() {
 	        console.log("handle next question");
 	        this.showAnswer = false;
-	        var newQuestion = this.quiz[Math.floor(Math.random()*this.quiz.length)];
-	        console.log(newQuestion);
+	        var randIdx = Math.floor(Math.random()*this.quiz.length);
+	
+	
+	        var newQuestion = this.quiz[randIdx];
+	        //insert filter here
+	
 	        this.currentQuestion = newQuestion;
 	        this.emit("change");
 	    },
@@ -34458,23 +34480,12 @@
 	    onShowAnswer: function(payload){
 	        console.log("show answer");
 	        this.showAnswer = !this.showAnswer;
+	        this.dispatch("BEEP")
 	        this.emit("change");
 	    }
 	});
 	
 	module.exports = QuizStore;
-
-/***/ },
-/* 341 */
-/***/ function(module, exports) {
-
-	module.exports ={
-	    NEXT_QUESTION: "NEXT_QUESTION",
-	    SHOW_ANSWER: "SHOW_ANSWER",
-	    LOAD_QUIZ: "LOAD_QUIZ",
-	    LOAD_QUIZ_SUCCESS: "LOAD_QUIZ_SUCCESS",
-	    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL"
-	}
 
 /***/ },
 /* 342 */
@@ -43696,7 +43707,7 @@
 /* 343 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Constants = __webpack_require__(341),
+	var Constants = __webpack_require__(336),
 	jquery=__webpack_require__(342);
 	var resp;
 	
@@ -43728,6 +43739,9 @@
 	    },
 	    showAnswer: function() {
 	        this.dispatch(Constants.SHOW_ANSWER);
+	    },
+	    beep: function() {
+	        this.dispatch(Constants.BEEP);
 	    }
 	};
 

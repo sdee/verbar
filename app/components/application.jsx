@@ -2,6 +2,7 @@ var React = require("react"),
     Fluxxor = require("fluxxor"),
     ReactBootstrap = require("react-bootstrap")
     FluxMixin = Fluxxor.FluxMixin(React),
+        Constants = require("../constants"),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var MsgCard = require("./messageCard.jsx"),
@@ -45,7 +46,6 @@ var Quiz = React.createClass({
         else {
             card = <MsgCard msg = {curr.text}/>
         }
-
         return (
             <div id="test">
             {card}
@@ -58,7 +58,9 @@ var Quiz = React.createClass({
         this.getFlux().actions.nextQuestion();
     },
     onShowAnswer: function() {
+        //pass filters to show answer!
         this.getFlux().actions.showAnswer();
+        //this.getFlux().actions.beep();
     }
 });
 
