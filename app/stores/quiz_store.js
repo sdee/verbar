@@ -1,6 +1,6 @@
 var Fluxxor = require("fluxxor"),
     Constants = require("../constants"),
-    jquery=require("jquery");
+     _ = require('underscore');
 
 var QuizStore = Fluxxor.createStore({
     initialize: function(options) {
@@ -10,7 +10,6 @@ var QuizStore = Fluxxor.createStore({
         this.loading = false;
         this.showAnswer = false;
         this.seenQuestions = [];
-        this.allowIrregulars = false;
         this.bindActions(
             Constants.NEXT_QUESTION, this.handleNextQuestion,
             Constants.SHOW_ANSWER, this.onShowAnswer,
@@ -26,11 +25,14 @@ var QuizStore = Fluxxor.createStore({
             showAnswer: this.showAnswer
         };
     },
-    handleNextQuestion: function(enableIrregular, useVosotros) {
-        console.log("handle next question");
-        console.log(enableIrregular);
+    handleNextQuestion: function(payload) {
+        var enableIrregular = payload.enableIrregular;
+        var useVosotros = payload.useVosotros;
         this.showAnswer = false;
         var randIdx = Math.floor(Math.random()*this.quiz.length);
+        console.log("SEEN");
+        console.log(_.contains(this.seenQuestions, randIdx));
+        this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
         //insert filter here
         this.currentQuestion = newQuestion;
