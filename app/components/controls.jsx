@@ -15,8 +15,8 @@ var Controls = React.createClass({
                 <a className="showanswer" href="#"
                   onClick={this.onShowAnswer}>Flip</a>
 
-           <input type="checkbox" checkedLink={this.linkState('enableIrregular')} />
-                <input type="checkbox" checkedLink={this.linkState('useVosotros')} />
+           <input type="checkbox" checkedLink={this.linkState('enableIrregular')}  /> Enable Irregular
+                <input type="checkbox" checkedLink={this.linkState('useVosotros')}  /> Use Vosotros
             </div>
         );
     }

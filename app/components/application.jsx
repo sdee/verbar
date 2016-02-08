@@ -21,7 +21,6 @@ var Quiz = React.createClass({
             error: QuizStore.error,
             quiz: QuizStore.quiz,
             showAnswer: QuizStore.showAnswer,
-            enableIrregular: QuizStore.enableIrregular,
             currentQuestion: QuizStore.currentQuestion
         };
     },
