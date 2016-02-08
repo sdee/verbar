@@ -3,6 +3,7 @@ var React = require("react"),
     LinkedStateMixin = require('react-addons-linked-state-mixin'),
     FluxMixin = Fluxxor.FluxMixin(React),
     Constants = require("../constants"),
+    ReactBootstrap = require("react-bootstrap"),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
 
 var MsgCard = require("./messageCard.jsx"),
@@ -43,12 +44,13 @@ var Quiz = React.createClass({
             card = <MsgCard msg = {curr.text}/>
         }
         return (
+            <ReactBootstrap.Panel header="quiz">
             <div id="test">
             {card}
                 <Ctrls/>
 
             </div>
-
+            </ReactBootstrap.Panel>
         );
     }
 });
