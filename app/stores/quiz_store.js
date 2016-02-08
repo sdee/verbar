@@ -45,8 +45,9 @@ var QuizStore = Fluxxor.createStore({
         console.log("q irregular");
         console.log(newQuestion.irregular);
         var failIrregular = enableIrregular!=true && newQuestion.irregular===true;
+        var failVosotros = useVosotros !=true && newQuestion.pronoun==="vosotros";
 
-        if (failIrregular){
+        if (failIrregular || failVosotros){
             console.log("skip");
             return this.handleNextQuestion(payload);
         }

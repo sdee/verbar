@@ -1,5 +1,6 @@
 [
   {"pronoun": "yo", "infinitive": "hablar", "tense": "present", "answer": "hablo", "irregular":false},
   {"pronoun": "ellos", "infinitive": "caminar", "tense": "present", "answer": "caminan", "irregular":false},
-  {"pronoun": "yo", "infinitive": "dormir", "tense": "present", "answer": "duermo", "irregular":true}
+  {"pronoun": "yo", "infinitive": "dormir", "tense": "present", "answer": "duermo", "irregular":true},
+  {"pronoun": "vosotros", "infinitive": "poner", "tense": "present", "answer": "ponéis", "irregular":false}
 ]
