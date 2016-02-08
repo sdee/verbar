@@ -1,4 +1,5 @@
 var React = require("react"),
+    ReactDOM = require('react-dom')
     Fluxxor = require("fluxxor"),
     FluxMixin = Fluxxor.FluxMixin(React),
     StoreWatchMixin = Fluxxor.StoreWatchMixin;
@@ -9,8 +10,7 @@ var Quiz = require("./components/application.jsx"),
     actions = require("./actions");
 
 var stores = {
-    QuizStore: new QuizStore(),
-    FilterStore: new FilterStore()
+    QuizStore: new QuizStore()
 };
 
 var flux = new Fluxxor.Flux(stores, actions);
@@ -22,4 +22,4 @@ flux.on("dispatch", function(type, payload) {
     }
 });
 
-React.render(<Quiz flux={flux} />, document.getElementById("app"));
+ReactDOM.render(<Quiz flux={flux} />, document.getElementById("app"));

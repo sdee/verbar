@@ -26,18 +26,9 @@ module.exports = {
   }.bind(this));
   },
     nextQuestion: function(enableIrregular, useVosotros) {
-        this.dispatch(Constants.NEXT_QUESTION, {enableIrregular: enableIrregular, useVosotros:useVosotros});
+        this.dispatch(Constants.NEXT_QUESTION, {enableIrregular:enableIrregular, useVosotros:useVosotros});
     },
     showAnswer: function() {
         this.dispatch(Constants.SHOW_ANSWER);
-    },
-    beep: function() { //debugging purpose
-        this.dispatch(Constants.BEEP);
-    },
-    toogleVosotros: function() {
-        this.dispatch(Constants.TOGGLE_VOSOTROS);
-    },
-    toggleIrregular: function() {
-        this.dispatch(Constants.TOGGLE_IRREGULAR);
     }
 };

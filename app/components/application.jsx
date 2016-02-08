@@ -11,17 +11,17 @@ var MsgCard = require("./messageCard.jsx"),
     Ctrls = require("./controls.jsx");
 
 var Quiz = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("QuizStore", "FilterStore"), LinkedStateMixin],
+    mixins: [FluxMixin, StoreWatchMixin("QuizStore"), LinkedStateMixin],
     // Required by StoreWatchMixin
     getStateFromFlux: function() {
         var flux = this.getFlux();
         var QuizStore = this.getFlux().store("QuizStore");
-        var FilterStore = this.getFlux().store("FilterStore");
         return {
             loading: QuizStore.loading,
             error: QuizStore.error,
             quiz: QuizStore.quiz,
             showAnswer: QuizStore.showAnswer,
+            enableIrregular: QuizStore.enableIrregular,
             currentQuestion: QuizStore.currentQuestion
         };
     },
@@ -46,18 +46,11 @@ var Quiz = React.createClass({
         return (
             <div id="test">
             {card}
-                <Ctrls onNextQuestion={this.onNextQuestion} onShowAnswer={this.onShowAnswer}/>
+                <Ctrls/>
 
             </div>
 
         );
-    },
-     onNextQuestion: function() {
-        this.getFlux().actions.nextQuestion(this.linkState('enableIrregular').value, this.linkState('useVosotros').value);
-    },
-    onShowAnswer: function() {
-        //pass filters to show answer!
-        this.getFlux().actions.showAnswer();
     }
 });
 

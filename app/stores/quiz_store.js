@@ -10,6 +10,7 @@ var QuizStore = Fluxxor.createStore({
         this.loading = false;
         this.showAnswer = false;
         this.seenQuestions = [];
+        this.enableIrregular = false;
         this.bindActions(
             Constants.NEXT_QUESTION, this.handleNextQuestion,
             Constants.SHOW_ANSWER, this.onShowAnswer,
@@ -22,19 +23,34 @@ var QuizStore = Fluxxor.createStore({
         return {
           questions: this.quiz.questions,
             currentQuestion: this.currentQuestion,
-            showAnswer: this.showAnswer
+            showAnswer: this.showAnswer,
+            enableIrregular: this.enableIrregular
         };
     },
     handleNextQuestion: function(payload) {
+        console.log("------------------------");
+        console.log(payload);
         var enableIrregular = payload.enableIrregular;
         var useVosotros = payload.useVosotros;
         this.showAnswer = false;
         var randIdx = Math.floor(Math.random()*this.quiz.length);
+
         console.log("SEEN");
         console.log(_.contains(this.seenQuestions, randIdx));
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
         //insert filter here
+        console.log("enableIrregular");
+        console.log(enableIrregular);
+        console.log("q irregular");
+        console.log(newQuestion.irregular);
+        var failIrregular = enableIrregular!=true && newQuestion.irregular===true;
+
+        if (failIrregular){
+            console.log("skip");
+            return this.handleNextQuestion(payload);
+        }
+
         this.currentQuestion = newQuestion;
         this.emit("change");
     },
