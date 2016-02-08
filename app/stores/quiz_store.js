@@ -39,11 +39,6 @@ var QuizStore = Fluxxor.createStore({
         console.log(_.contains(this.seenQuestions, randIdx));
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
-        //insert filter here
-        console.log("enableIrregular");
-        console.log(enableIrregular);
-        console.log("q irregular");
-        console.log(newQuestion.irregular);
         var failIrregular = enableIrregular!=true && newQuestion.irregular===true;
         var failVosotros = useVosotros !=true && newQuestion.pronoun==="vosotros";
 

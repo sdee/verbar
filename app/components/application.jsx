@@ -34,7 +34,6 @@ var Quiz = React.createClass({
         var curr = this.state.currentQuestion;
         var card;
         if (curr.infinitive && this.state.showAnswer===false){
-
             card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
         }
         else if (curr.infinitive) {
@@ -48,7 +47,6 @@ var Quiz = React.createClass({
             <div id="test">
             {card}
                 <Ctrls/>
-
             </div>
             </ReactBootstrap.Panel>
         );
