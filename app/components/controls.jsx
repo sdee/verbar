@@ -11,6 +11,8 @@ var Controls = React.createClass({
         };
     },
     render: function () {
+        console.log("PROPS");
+        console.log(this.props);
         return (
             <div>
                 <a className="nextquestion" href="#"
@@ -22,7 +24,7 @@ var Controls = React.createClass({
                 Enable Irregular
                 <input type="checkbox" checkedLink={this.linkState('useVosotros')}  />
                 Use Vosotros<br></br>
-            <UserAnswer answer=this.props.answer/>
+            <UserAnswer answer={this.props.question.answer}/>
             </div>
         );
     },
