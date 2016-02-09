@@ -6,7 +6,6 @@ var React = require("react"),
 
 var Quiz = require("./components/application.jsx"),
     QuizStore = require("./stores/quiz_store"),
-    FilterStore = require("./stores/filter_store"),
     actions = require("./actions");
 
 var stores = {
@@ -16,7 +15,7 @@ var stores = {
 var flux = new Fluxxor.Flux(stores, actions);
 window.flux = flux;
 
-flux.on("dispatch", function(type, payload) {
+flux.on("dispatch", function (type, payload) {
     if (console && console.log) {
         console.log("[Dispatch]", type, payload);
     }

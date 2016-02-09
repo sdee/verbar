@@ -2,29 +2,31 @@ React = require("react");
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var Controls = React.createClass({
     mixins: [FluxMixin, LinkedStateMixin],
-    getInitialState: function() {
-        return {enableIrregular:false,
-            useVosotros:false};
+    getInitialState: function () {
+        return {
+            enableIrregular: false,
+            useVosotros: false
+        };
     },
-    render: function() {
-
+    render: function () {
         return (
             <div>
-            <a className="nextquestion" href="#"
-                  onClick={this.onNextQuestion}>Next</a><br></br>
+                <a className="nextquestion" href="#"
+                    onClick={this.onNextQuestion}>Next</a>
+                <br></br>
                 <a className="showanswer" href="#"
-                  onClick={this.onShowAnswer}>Flip</a>
-
-           <input type="checkbox" checkedLink={this.linkState('enableIrregular')}  /> Enable Irregular
-                <input type="checkbox" checkedLink={this.linkState('useVosotros')}  /> Use Vosotros
+                    onClick={this.onShowAnswer}>Flip</a>
+                <input type="checkbox" checkedLink={this.linkState('enableIrregular')}  />
+                Enable Irregular
+                <input type="checkbox" checkedLink={this.linkState('useVosotros')}  />
+                Use Vosotros
             </div>
         );
-    }
-    ,
-     onNextQuestion: function() {
+    },
+    onNextQuestion: function () {
         this.getFlux().actions.nextQuestion(this.linkState('enableIrregular').value, this.linkState('useVosotros').value);
     },
-    onShowAnswer: function() {
+    onShowAnswer: function () {
         //pass filters to show answer!
         this.getFlux().actions.showAnswer();
     }

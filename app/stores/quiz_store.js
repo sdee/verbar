@@ -1,9 +1,9 @@
 var Fluxxor = require("fluxxor"),
     Constants = require("../constants"),
-     _ = require('underscore');
+    _ = require('underscore');
 
 var QuizStore = Fluxxor.createStore({
-    initialize: function(options) {
+    initialize: function (options) {
         this.quiz = [];
         this.currentQuestion = {"text": "message"}; //display
         this.questions = [];
@@ -19,30 +19,30 @@ var QuizStore = Fluxxor.createStore({
             Constants.LOAD_QUIZ_FAIL, this.onLoadQuizFail
         );
     },
-    getState: function() {
+    getState: function () {
         return {
-          questions: this.quiz.questions,
+            questions: this.quiz.questions,
             currentQuestion: this.currentQuestion,
             showAnswer: this.showAnswer,
             enableIrregular: this.enableIrregular
         };
     },
-    handleNextQuestion: function(payload) {
+    handleNextQuestion: function (payload) {
         console.log("------------------------");
         console.log(payload);
         var enableIrregular = payload.enableIrregular;
         var useVosotros = payload.useVosotros;
         this.showAnswer = false;
-        var randIdx = Math.floor(Math.random()*this.quiz.length);
+        var randIdx = Math.floor(Math.random() * this.quiz.length);
 
         console.log("SEEN");
         console.log(_.contains(this.seenQuestions, randIdx));
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
-        var failIrregular = enableIrregular!=true && newQuestion.irregular===true;
-        var failVosotros = useVosotros !=true && newQuestion.pronoun==="vosotros";
+        var failIrregular = enableIrregular != true && newQuestion.irregular === true;
+        var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
 
-        if (failIrregular || failVosotros){
+        if (failIrregular || failVosotros) {
             console.log("skip");
             return this.handleNextQuestion(payload);
         }
@@ -50,12 +50,12 @@ var QuizStore = Fluxxor.createStore({
         this.currentQuestion = newQuestion;
         this.emit("change");
     },
-    onLoadQuiz: function() {
+    onLoadQuiz: function () {
         console.log("loading quiz");
         this.loading = true;
         this.emit("change");
     },
-    onLoadQuizSuccess: function(payload) {
+    onLoadQuizSuccess: function (payload) {
         console.log("load success");
         console.log(payload);
         this.loading = false;
@@ -63,13 +63,13 @@ var QuizStore = Fluxxor.createStore({
         this.quiz = payload.quiz;
         this.emit("change");
     },
-    onLoadQuizFail: function(payload) {
+    onLoadQuizFail: function (payload) {
         this.loading = false;
         this.error = payload.error;
         this.emit("change");
     },
     //rename flip
-    onShowAnswer: function(){
+    onShowAnswer: function () {
         console.log("show answer");
         this.showAnswer = !this.showAnswer;
         this.emit("change");
