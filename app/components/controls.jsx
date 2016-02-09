@@ -1,5 +1,7 @@
 React = require("react");
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var UserAnswer = require("./userAnswer.jsx");
+
 var Controls = React.createClass({
     mixins: [FluxMixin, LinkedStateMixin],
     getInitialState: function () {
@@ -19,7 +21,8 @@ var Controls = React.createClass({
                 <input type="checkbox" checkedLink={this.linkState('enableIrregular')}  />
                 Enable Irregular
                 <input type="checkbox" checkedLink={this.linkState('useVosotros')}  />
-                Use Vosotros
+                Use Vosotros<br></br>
+            <UserAnswer/>
             </div>
         );
     },
