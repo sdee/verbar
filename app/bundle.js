@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(1);
-	module.exports = __webpack_require__(518);
+	module.exports = __webpack_require__(519);
 
 
 /***/ },
@@ -60,9 +60,9 @@
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
 	var Quiz = __webpack_require__(257),
-	    QuizStore = __webpack_require__(513),
-	    UserInputStore = __webpack_require__(515),
-	    actions = __webpack_require__(516);
+	    QuizStore = __webpack_require__(514),
+	    UserInputStore = __webpack_require__(516),
+	    actions = __webpack_require__(517);
 	
 	var stores = {
 	    QuizStore: new QuizStore(),
@@ -24312,12 +24312,14 @@
 	var MsgCard = __webpack_require__(507),
 	    VerbCard = __webpack_require__(508),
 	    AnswerCard = __webpack_require__(509)
-	    Ctrls = __webpack_require__(510);
+	Ctrls = __webpack_require__(510),
+	    CustomOptions = __webpack_require__(513),
+	    UserAnswer = __webpack_require__(511);
 	
 	var Quiz = React.createClass({displayName: "Quiz",
 	    mixins: [FluxMixin, StoreWatchMixin("QuizStore"), LinkedStateMixin],
 	    // Required by StoreWatchMixin
-	    getStateFromFlux: function() {
+	    getStateFromFlux: function () {
 	        var flux = this.getFlux();
 	        var QuizStore = this.getFlux().store("QuizStore");
 	        return {
@@ -24328,15 +24330,15 @@
 	            currentQuestion: QuizStore.currentQuestion
 	        };
 	    },
-	    componentDidMount: function() {
+	    componentDidMount: function () {
 	        this.getFlux().actions.loadQuiz();
-	      },
-	    render: function() {
+	    },
+	    render: function () {
 	        var questions = this.state.quiz;
 	        console.log(questions);
 	        var curr = this.state.currentQuestion;
 	        var card;
-	        if (curr.infinitive && this.state.showAnswer===false){
+	        if (curr.infinitive && this.state.showAnswer === false) {
 	            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense});
 	        }
 	        else if (curr.infinitive) {
@@ -24346,12 +24348,20 @@
 	            card = React.createElement(MsgCard, {msg: curr.text})
 	        }
 	        return (
-	            React.createElement(ReactBootstrap.Panel, {header: "quiz"}, 
 	            React.createElement("div", {id: "test"}, 
-	            card, 
-	                React.createElement(Ctrls, {question: this.state.currentQuestion})
+	                    React.createElement(ReactBootstrap.Panel, {header: "practice your verbs, eat your vegetables"}, 
+	
+	                React.createElement("section", {className: "front"}, 
+	            card
+	                    ), 
+	
+	                    React.createElement(Ctrls, {question: this.state.currentQuestion})
+	                        ), 
+	                    React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer}), 
+	                    React.createElement(CustomOptions, null)
 	            )
-	            )
+	
+	
 	        );
 	    }
 	});
@@ -41647,7 +41657,8 @@
 /* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
-	React = __webpack_require__(2);
+	var React = __webpack_require__(2),
+	    ReactBootstrap = __webpack_require__(263);
 	var LinkedStateMixin = __webpack_require__(258);
 	var UserAnswer = __webpack_require__(511);
 	
@@ -41660,20 +41671,10 @@
 	        };
 	    },
 	    render: function () {
-	        console.log("PROPS");
-	        console.log(this.props);
 	        return (
 	            React.createElement("div", null, 
-	                React.createElement("a", {className: "nextquestion", href: "#", 
-	                    onClick: this.onNextQuestion}, "Next"), 
-	                React.createElement("br", null), 
-	                React.createElement("a", {className: "showanswer", href: "#", 
-	                    onClick: this.onShowAnswer}, "Flip"), 
-	                React.createElement("input", {type: "checkbox", checkedLink: this.linkState('enableIrregular')}), 
-	                "Enable Irregular", 
-	                React.createElement("input", {type: "checkbox", checkedLink: this.linkState('useVosotros')}), 
-	                "Use Vosotros", React.createElement("br", null), 
-	            React.createElement(UserAnswer, {answer: this.props.question.answer})
+	                React.createElement(ReactBootstrap.Button, {bsStyle: "success", onClick: this.onNextQuestion}, "Next Question"), 
+	                React.createElement(ReactBootstrap.Button, {bsStyle: "primary", onClick: this.onShowAnswer}, "Show Answer")
 	            )
 	        );
 	    },
@@ -41700,7 +41701,8 @@
 	    Constants = __webpack_require__(262),
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin,
 	    Utils = __webpack_require__(512);
-	var LinkedStateMixin = __webpack_require__(258);
+	var LinkedStateMixin = __webpack_require__(258),
+	    ReactBootstrap = __webpack_require__(263);
 	var UserAnswer = React.createClass({displayName: "UserAnswer",
 	    mixins: [FluxMixin, StoreWatchMixin("UserInputStore"), LinkedStateMixin],
 	    getInitialState: function () {
@@ -41744,12 +41746,9 @@
 	    },
 	    render: function () {
 	        return (
-	            React.createElement("div", null, 
-	                "Correct???: ", this.state.correct.toString(), 
+	            React.createElement(ReactBootstrap.Panel, {header: "Input"}, 
 	                "Final Answer", 
 	                React.createElement("b", null, React.createElement("font", {color: this.state.correct ? "green" : "red"}, this.state.finalAnswer)), 
-	                React.createElement("br", null), 
-	                "Your Answer: ", this.linkState('useAnswer').value, 
 	                React.createElement("br", null), 
 	                React.createElement("form", {className: "userInput", onSubmit: this.handleSubmit}, 
 	                    React.createElement("input", {
@@ -41758,10 +41757,12 @@
 	                        value: this.state.userAnswer, 
 	                        onChange: this.handleUserAnswer}
 	                    ), 
-	                    React.createElement("input", {type: "submit", value: "Post"})
-	                ), 
-	                 React.createElement("input", {type: "checkbox", checkedLink: this.linkState('ignoreAccents')}), 
-	                "Ignore Accents", React.createElement("br", null)
+	                    React.createElement(ReactBootstrap.ButtonInput, {type: "submit", value: "post", bsStyle: "success", bsSize: "medium", disabled: this.state.disabled}), 
+	  React.createElement("input", {type: "checkbox", checkedLink: this.linkState('ignoreAccents')}), 
+	                "Ignore Accents"
+	                )
+	
+	
 	            )
 	        );
 	    }
@@ -41798,9 +41799,42 @@
 /* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var React = __webpack_require__(2),
+	    ReactBootstrap = __webpack_require__(263);
+	var LinkedStateMixin = __webpack_require__(258);
+	var UserAnswer = __webpack_require__(511);
+	
+	var CustomOptions = React.createClass({displayName: "CustomOptions",
+	    mixins: [FluxMixin, LinkedStateMixin],
+	    getInitialState: function () {
+	        return {
+	            enableIrregular: false,
+	            useVosotros: false
+	        };
+	    },
+	    render: function () {
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement(ReactBootstrap.Panel, {header: "Customize"}, 
+	                React.createElement("input", {type: "checkbox", checkedLink: this.linkState('enableIrregular')}), 
+	                "Enable Irregular", 
+	                React.createElement("input", {type: "checkbox", checkedLink: this.linkState('useVosotros')}), 
+	                "Use Vosotros", React.createElement("br", null)
+	                )
+	            )
+	        );
+	    }
+	});
+	
+	module.exports = CustomOptions;
+
+/***/ },
+/* 514 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(514);
+	    _ = __webpack_require__(515);
 	
 	var QuizStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -41873,7 +41907,7 @@
 	module.exports = QuizStore;
 
 /***/ },
-/* 514 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -43427,12 +43461,12 @@
 
 
 /***/ },
-/* 515 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(514);
+	    _ = __webpack_require__(515);
 	
 	var UserInputStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -43464,11 +43498,11 @@
 	module.exports = UserInputStore;
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Constants = __webpack_require__(262),
-	    jquery = __webpack_require__(517);
+	    jquery = __webpack_require__(518);
 	var resp;
 	
 	var QuizClient = {
@@ -43505,7 +43539,7 @@
 
 
 /***/ },
-/* 517 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -53342,7 +53376,7 @@
 
 
 /***/ },
-/* 518 */
+/* 519 */
 /***/ function(module, exports) {
 
 

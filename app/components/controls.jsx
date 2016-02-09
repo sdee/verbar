@@ -1,4 +1,5 @@
-React = require("react");
+var React = require("react"),
+    ReactBootstrap = require("react-bootstrap");
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var UserAnswer = require("./userAnswer.jsx");
 
@@ -11,20 +12,10 @@ var Controls = React.createClass({
         };
     },
     render: function () {
-        console.log("PROPS");
-        console.log(this.props);
         return (
             <div>
-                <a className="nextquestion" href="#"
-                    onClick={this.onNextQuestion}>Next</a>
-                <br></br>
-                <a className="showanswer" href="#"
-                    onClick={this.onShowAnswer}>Flip</a>
-                <input type="checkbox" checkedLink={this.linkState('enableIrregular')}  />
-                Enable Irregular
-                <input type="checkbox" checkedLink={this.linkState('useVosotros')}  />
-                Use Vosotros<br></br>
-            <UserAnswer answer={this.props.question.answer}/>
+                <ReactBootstrap.Button bsStyle="success" onClick={this.onNextQuestion}>Next Question</ReactBootstrap.Button>
+                <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>Show Answer</ReactBootstrap.Button>
             </div>
         );
     },

@@ -6,7 +6,8 @@ React = require("react"),
     Constants = require("../constants"),
     StoreWatchMixin = Fluxxor.StoreWatchMixin,
     Utils = require("../utils");
-var LinkedStateMixin = require('react-addons-linked-state-mixin');
+var LinkedStateMixin = require('react-addons-linked-state-mixin'),
+    ReactBootstrap = require("react-bootstrap");
 var UserAnswer = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("UserInputStore"), LinkedStateMixin],
     getInitialState: function () {
@@ -50,12 +51,9 @@ var UserAnswer = React.createClass({
     },
     render: function () {
         return (
-            <div>
-                Correct???: {this.state.correct.toString()}
+            <ReactBootstrap.Panel header="Input">
                 Final Answer
                 <b><font color={this.state.correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
-                <br></br>
-                Your Answer: {this.linkState('useAnswer').value}
                 <br></br>
                 <form className="userInput" onSubmit={this.handleSubmit}>
                     <input
@@ -64,11 +62,13 @@ var UserAnswer = React.createClass({
                         value={this.state.userAnswer}
                         onChange={this.handleUserAnswer}
                     />
-                    <input type="submit" value="Post" />
+                    <ReactBootstrap.ButtonInput type="submit" value="post" bsStyle="success" bsSize="medium" disabled={this.state.disabled} />
+  <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  />
+                Ignore Accents
                 </form>
-                 <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  />
-                Ignore Accents<br></br>
-            </div>
+
+
+            </ReactBootstrap.Panel>
         );
     }
 });
