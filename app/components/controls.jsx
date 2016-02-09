@@ -22,7 +22,7 @@ var Controls = React.createClass({
                 Enable Irregular
                 <input type="checkbox" checkedLink={this.linkState('useVosotros')}  />
                 Use Vosotros<br></br>
-            <UserAnswer/>
+            <UserAnswer answer=this.props.answer/>
             </div>
         );
     },

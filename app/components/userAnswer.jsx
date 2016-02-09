@@ -5,7 +5,8 @@ var UserAnswer = React.createClass({
     getInitialState: function () {
         return {
             userAnswer: '',
-            finalAnswer: ''
+            finalAnswer: '',
+            ignoreAccent: false
         };
     },
     handleSubmit: function (e) {
@@ -14,8 +15,8 @@ var UserAnswer = React.createClass({
         if (!text) {
             return;
         }
+        //check answer and change color
         this.setState({finalAnswer: text});
-        // TODO: send request to the server
         this.setState({userAnswer: ''});
     },
     handleUserAnswer: function (e) {
@@ -25,6 +26,7 @@ var UserAnswer = React.createClass({
         return (
             <div>
                 Final Answer
+                <u>{this.props.answer}</u>
                 <b>{this.state.finalAnswer}</b>
                 <br></br>
                 Your Answer: {this.linkState('useAnswer').value}

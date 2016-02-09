@@ -46,7 +46,7 @@ var Quiz = React.createClass({
             <ReactBootstrap.Panel header="quiz">
             <div id="test">
             {card}
-                <Ctrls/>
+                <Ctrls currQuestion=curr/>
             </div>
             </ReactBootstrap.Panel>
         );

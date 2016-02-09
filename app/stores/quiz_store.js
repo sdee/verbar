@@ -34,19 +34,13 @@ var QuizStore = Fluxxor.createStore({
         var useVosotros = payload.useVosotros;
         this.showAnswer = false;
         var randIdx = Math.floor(Math.random() * this.quiz.length);
-
-        console.log("SEEN");
-        console.log(_.contains(this.seenQuestions, randIdx));
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
         var failIrregular = enableIrregular != true && newQuestion.irregular === true;
         var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
-
         if (failIrregular || failVosotros) {
-            console.log("skip");
             return this.handleNextQuestion(payload);
         }
-
         this.currentQuestion = newQuestion;
         this.emit("change");
     },
