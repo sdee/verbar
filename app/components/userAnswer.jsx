@@ -1,13 +1,22 @@
-React = require("react");
+React = require("react"),
+    Fluxxor = require("fluxxor"),
+    ReactBootstrap = require("react-bootstrap"),
+    FluxMixin = Fluxxor.FluxMixin(React),
+    Constants = require("../constants"),
+    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 var LinkedStateMixin = require('react-addons-linked-state-mixin');
 var UserAnswer = React.createClass({
-    mixins: [FluxMixin, LinkedStateMixin],
-    getInitialState: function () {
+    mixins: [FluxMixin, StoreWatchMixin("UserInputStore"), LinkedStateMixin],
+    getStateFromFlux: function () {
+        var flux = this.getFlux();
+        var UserInputStore = this.getFlux().store("UserInputStore");
+        console.log("STORE");
+        console.log(UserInputStore);
         return {
-            userAnswer: '',
-            finalAnswer: '',
-            ignoreAccent: false,
-            correct: false
+            userAnswer: UserInputStore.userAnswer,
+            finalAnswer: UserInputStore.finalAnswer,
+            ignoreAccent: UserInputStore.ignoreAccent,
+            correct: UserInputStore.correct
         };
     },
     handleSubmit: function (e) {
@@ -26,7 +35,7 @@ var UserAnswer = React.createClass({
         console.log(text);
         console.log("ANSWER");
         console.log(this.props.answer);
-        var correct=text==this.props.answer;
+        var correct = text == this.props.answer;
         this.setState({finalAnswer: text});
         console.log("CORRECT????");
         console.log(correct);

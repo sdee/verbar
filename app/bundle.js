@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(1);
-	module.exports = __webpack_require__(516);
+	module.exports = __webpack_require__(517);
 
 
 /***/ },
@@ -61,10 +61,12 @@
 	
 	var Quiz = __webpack_require__(257),
 	    QuizStore = __webpack_require__(512),
-	    actions = __webpack_require__(514);
+	    UserInputStore = __webpack_require__(514),
+	    actions = __webpack_require__(515);
 	
 	var stores = {
-	    QuizStore: new QuizStore()
+	    QuizStore: new QuizStore(),
+	    UserInputStore: new UserInputStore()
 	};
 	
 	var flux = new Fluxxor.Flux(stores, actions);
@@ -41690,16 +41692,25 @@
 /* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
-	React = __webpack_require__(2);
+	React = __webpack_require__(2),
+	    Fluxxor = __webpack_require__(160),
+	    ReactBootstrap = __webpack_require__(263),
+	    FluxMixin = Fluxxor.FluxMixin(React),
+	    Constants = __webpack_require__(262),
+	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	var LinkedStateMixin = __webpack_require__(258);
 	var UserAnswer = React.createClass({displayName: "UserAnswer",
-	    mixins: [FluxMixin, LinkedStateMixin],
-	    getInitialState: function () {
+	    mixins: [FluxMixin, StoreWatchMixin("UserInputStore"), LinkedStateMixin],
+	    getStateFromFlux: function () {
+	        var flux = this.getFlux();
+	        var UserInputStore = this.getFlux().store("UserInputStore");
+	        console.log("STORE");
+	        console.log(UserInputStore);
 	        return {
-	            userAnswer: '',
-	            finalAnswer: '',
-	            ignoreAccent: false,
-	            correct: false
+	            userAnswer: UserInputStore.userAnswer,
+	            finalAnswer: UserInputStore.finalAnswer,
+	            ignoreAccent: UserInputStore.ignoreAccent,
+	            correct: UserInputStore.correct
 	        };
 	    },
 	    handleSubmit: function (e) {
@@ -41708,7 +41719,6 @@
 	        if (!text) {
 	            return;
 	        }
-	
 	        //check answer and change color
 	
 	        //check if correct
@@ -41719,7 +41729,7 @@
 	        console.log(text);
 	        console.log("ANSWER");
 	        console.log(this.props.answer);
-	        var correct=text==this.props.answer;
+	        var correct = text == this.props.answer;
 	        this.setState({finalAnswer: text});
 	        console.log("CORRECT????");
 	        console.log(correct);
@@ -43392,8 +43402,47 @@
 /* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Fluxxor = __webpack_require__(160),
+	    Constants = __webpack_require__(262),
+	    _ = __webpack_require__(513);
+	
+	var UserInputStore = Fluxxor.createStore({
+	    initialize: function (options) {
+	        this.userAnswer = '';
+	        this.finalAnswer = '';
+	        this.ignoreAccent = false;
+	        this.correct = false;
+	
+	        this.bindActions(
+	            Constants.NEXT_QUESTION, this.resetUserInput
+	        );
+	    },
+	    getState: function () {
+	        return {
+	            userAnswer: this.userAnswer,
+	            finalAnswer: this.finalAnswer,
+	            ignoreAccent: this.ignoreAccent,
+	            correct: this.correct
+	        };
+	    },
+	    resetUserInput: function () {
+	        console.log("RESET USER INPUT");
+	        this.userAnswer = '';
+	        this.finalAnswer = '';
+	        this.ignoreAccent = false;
+	        this.correct = false;
+	        this.emit("change");
+	    }
+	});
+	
+	module.exports = UserInputStore;
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Constants = __webpack_require__(262),
-	    jquery = __webpack_require__(515);
+	    jquery = __webpack_require__(516);
 	var resp;
 	
 	var QuizClient = {
@@ -43430,7 +43479,7 @@
 
 
 /***/ },
-/* 515 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -53267,7 +53316,7 @@
 
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports) {
 
 
