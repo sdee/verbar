@@ -6,7 +6,6 @@ var UserInputStore = Fluxxor.createStore({
     initialize: function (options) {
         this.userAnswer = '';
         this.finalAnswer = '';
-        this.ignoreAccent = false;
         this.correct = false;
 
         this.bindActions(
@@ -22,7 +21,6 @@ var UserInputStore = Fluxxor.createStore({
         };
     },
     resetUserInput: function () {
-        console.log("RESET USER INPUT");
         this.userAnswer = '';
         this.finalAnswer = '';
         this.ignoreAccent = false;
