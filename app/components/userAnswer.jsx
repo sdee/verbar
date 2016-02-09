@@ -10,8 +10,6 @@ var UserAnswer = React.createClass({
     getStateFromFlux: function () {
         var flux = this.getFlux();
         var UserInputStore = this.getFlux().store("UserInputStore");
-        console.log("STORE");
-        console.log(UserInputStore);
         return {
             userAnswer: UserInputStore.userAnswer,
             finalAnswer: UserInputStore.finalAnswer,
@@ -26,19 +24,9 @@ var UserAnswer = React.createClass({
             return;
         }
         //check answer and change color
-
         //check if correct
-        console.log("-------------");
-        console.log("TEXT");
-        console.log(text);
-        console.log("final answer");
-        console.log(text);
-        console.log("ANSWER");
-        console.log(this.props.answer);
         var correct = text == this.props.answer;
         this.setState({finalAnswer: text});
-        console.log("CORRECT????");
-        console.log(correct);
         this.setState({correct: correct});
         this.setState({userAnswer: ''});
     },
@@ -46,13 +34,11 @@ var UserAnswer = React.createClass({
         this.setState({userAnswer: e.target.value});
     },
     render: function () {
-        console.log("ANSWER");
-        console.log(this.props.answer);
         return (
             <div>
                 Correct???: {this.state.correct.toString()}
                 Final Answer
-                <b>{this.state.finalAnswer}</b>
+                <b><font color={correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
                 <br></br>
                 Your Answer: {this.linkState('useAnswer').value}
                 <br></br>
