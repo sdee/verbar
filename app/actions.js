@@ -31,5 +31,8 @@ module.exports = {
     },
     showAnswer: function () {
         this.dispatch(Constants.SHOW_ANSWER);
+    },
+    submitUserAnswer: function(submittedAnswer, correct) {
+        this.dispatch(Constants.SUBMIT_ANSWER, {submittedAnswer: submittedAnswer, correct:correct});
     }
 };

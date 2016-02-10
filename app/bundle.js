@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(1);
-	module.exports = __webpack_require__(519);
+	module.exports = __webpack_require__(520);
 
 
 /***/ },
@@ -60,9 +60,9 @@
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
 	var Quiz = __webpack_require__(257),
-	    QuizStore = __webpack_require__(514),
-	    UserInputStore = __webpack_require__(516),
-	    actions = __webpack_require__(517);
+	    QuizStore = __webpack_require__(515),
+	    UserInputStore = __webpack_require__(517),
+	    actions = __webpack_require__(518);
 	
 	var stores = {
 	    QuizStore: new QuizStore(),
@@ -24311,23 +24311,28 @@
 	
 	var MsgCard = __webpack_require__(507),
 	    VerbCard = __webpack_require__(508),
-	    AnswerCard = __webpack_require__(509)
-	Ctrls = __webpack_require__(510),
-	    CustomOptions = __webpack_require__(513),
-	    UserAnswer = __webpack_require__(511);
+	    AnswerCard = __webpack_require__(509),
+	    FeedbackCard = __webpack_require__(510),
+	    Ctrls = __webpack_require__(511),
+	    CustomOptions = __webpack_require__(514),
+	    UserAnswer = __webpack_require__(512);
 	
 	var Quiz = React.createClass({displayName: "Quiz",
-	    mixins: [FluxMixin, StoreWatchMixin("QuizStore"), LinkedStateMixin],
+	    mixins: [FluxMixin, StoreWatchMixin("QuizStore", "UserInputStore"), LinkedStateMixin],
 	    // Required by StoreWatchMixin
 	    getStateFromFlux: function () {
 	        var flux = this.getFlux();
 	        var QuizStore = this.getFlux().store("QuizStore");
+	        var UserInputStore = this.getFlux().store("UserInputStore");
 	        return {
 	            loading: QuizStore.loading,
 	            error: QuizStore.error,
 	            quiz: QuizStore.quiz,
 	            showAnswer: QuizStore.showAnswer,
-	            currentQuestion: QuizStore.currentQuestion
+	            currentQuestion: QuizStore.currentQuestion,
+	            hasSubmittedAnswer: UserInputStore.hasSubmittedAnswer,
+	            correct: UserInputStore.correct,
+	            submittedAnswer: UserInputStore.submittedAnswer
 	        };
 	    },
 	    componentDidMount: function () {
@@ -24338,10 +24343,14 @@
 	        console.log(questions);
 	        var curr = this.state.currentQuestion;
 	        var card;
-	        if (curr.infinitive && this.state.showAnswer === false) {
+	        if (this.state.hasSubmittedAnswer && curr.infinitive && this.state.showAnswer === false) {
+	            //feedback
+	            card = React.createElement(FeedbackCard, {correct: this.state.correct, correctAnswer: curr.answer, submittedAnswer: this.state.submittedAnswer})
+	        }
+	        else if (curr.infinitive && this.state.showAnswer === false) {
 	            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense});
 	        }
-	        else if (curr.infinitive) {
+	        else if (curr.infinitive) { //add branch to user input
 	            card = React.createElement(AnswerCard, {answer: curr.answer});
 	        }
 	        else {
@@ -24349,19 +24358,15 @@
 	        }
 	        return (
 	            React.createElement("div", {id: "test"}, 
-	                    React.createElement(ReactBootstrap.Panel, {header: "practice your verbs, eat your vegetables"}, 
-	
+	                React.createElement(ReactBootstrap.Panel, {header: "practice your verbs, eat your vegetables"}, 
 	                React.createElement("section", {className: "front"}, 
-	            card
-	                    ), 
-	
+	                card
+	                ), 
 	                    React.createElement(Ctrls, {question: this.state.currentQuestion})
-	                        ), 
-	                    React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer}), 
-	                    React.createElement(CustomOptions, null)
+	                ), 
+	                React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer}), 
+	                React.createElement(CustomOptions, null)
 	            )
-	
-	
 	        );
 	    }
 	});
@@ -24608,7 +24613,8 @@
 	    SHOW_ANSWER: "SHOW_ANSWER",
 	    LOAD_QUIZ: "LOAD_QUIZ",
 	    LOAD_QUIZ_SUCCESS: "LOAD_QUIZ_SUCCESS",
-	    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL"
+	    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL",
+	    SUBMIT_ANSWER: "SUBMIT_ANSWER"
 	}
 
 /***/ },
@@ -41657,10 +41663,39 @@
 /* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
+	React = __webpack_require__(2);
+	
+	var FeedbackCard = React.createClass({displayName: "FeedbackCard",
+	   propTypes: {
+	      correct: React.PropTypes.bool.isRequired,
+	       correctAnswer: React.PropTypes.string.isRequired,
+	       submittedAnswer: React.PropTypes.string.isRequired
+	   },
+	       getInitialState: function() {
+	           return { };
+	       },
+	       render: function() {
+	           console.log("PROPS>>>>>>>>>");
+	           console.log(this.props);
+	       return (
+	           React.createElement("div", null, 
+	           React.createElement("font", {color: this.props.correct ? "green" : "red"}, this.props.submittedAnswer), 
+	           !this.props.correct ? this.props.correctAnswer: ''
+	           )
+	       )
+	       }
+	});
+	
+	module.exports = FeedbackCard;
+
+/***/ },
+/* 511 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var React = __webpack_require__(2),
 	    ReactBootstrap = __webpack_require__(263);
 	var LinkedStateMixin = __webpack_require__(258);
-	var UserAnswer = __webpack_require__(511);
+	var UserAnswer = __webpack_require__(512);
 	
 	var Controls = React.createClass({displayName: "Controls",
 	    mixins: [FluxMixin, LinkedStateMixin],
@@ -41673,8 +41708,10 @@
 	    render: function () {
 	        return (
 	            React.createElement("div", null, 
+	                React.createElement(ReactBootstrap.ButtonToolbar, null, 
 	                React.createElement(ReactBootstrap.Button, {bsStyle: "success", onClick: this.onNextQuestion}, "Next Question"), 
-	                React.createElement(ReactBootstrap.Button, {bsStyle: "primary", onClick: this.onShowAnswer}, "Show Answer")
+	                React.createElement(ReactBootstrap.Button, {bsStyle: "primary", onClick: this.onShowAnswer}, "Flip Card")
+	                )
 	            )
 	        );
 	    },
@@ -41682,7 +41719,6 @@
 	        this.getFlux().actions.nextQuestion(this.linkState('enableIrregular').value, this.linkState('useVosotros').value);
 	    },
 	    onShowAnswer: function () {
-	        //pass filters to show answer!
 	        this.getFlux().actions.showAnswer();
 	    }
 	});
@@ -41690,7 +41726,7 @@
 	module.exports = Controls;
 
 /***/ },
-/* 511 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2),
@@ -41700,7 +41736,7 @@
 	    FluxMixin = Fluxxor.FluxMixin(React),
 	    Constants = __webpack_require__(262),
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin,
-	    Utils = __webpack_require__(512);
+	    Utils = __webpack_require__(513);
 	var LinkedStateMixin = __webpack_require__(258),
 	    ReactBootstrap = __webpack_require__(263);
 	var UserAnswer = React.createClass({displayName: "UserAnswer",
@@ -41714,39 +41750,36 @@
 	        var flux = this.getFlux();
 	        var UserInputStore = this.getFlux().store("UserInputStore");
 	        return {
-	            userAnswer: UserInputStore.userAnswer,
+	            userAnswer: '',
 	            finalAnswer: UserInputStore.finalAnswer,
 	            correct: UserInputStore.correct
 	        };
 	    },
 	    handleSubmit: function (e) {
-	        console.log("STATE>>>");
-	        console.log(this.state);
 	        e.preventDefault();
-	        var text = this.state.userAnswer.trim();
-	        if (!text) {
+	        var tidyText = this.state.userAnswer.trim();
+	        if (!tidyText) {
 	            return;
 	        }
 	        //check answer and change color
 	        //check if correct
 	        var correctAnswer = this.props.answer;
 	        if (this.state.ignoreAccents) {
-	            text = Utils.accentsTidy(text);
-	            correctAnswer = Utils.accentsTidy(text);
-	            console.log("ignore accent!");
-	            console.log(text);
+	            tidyText = Utils.accentsTidy(tidyText);
+	            correctAnswer = Utils.accentsTidy(correctAnswer);
 	        }
-	        var correct = text == correctAnswer;
-	        this.setState({finalAnswer: text});
+	        var correct = tidyText == correctAnswer;
+	        this.setState({finalAnswer: tidyText});//submitted
 	        this.setState({correct: correct});
-	        this.setState({userAnswer: ''});
+	        this.setState({userAnswer: ''}); //user input as being typed
+	        this.getFlux().actions.submitUserAnswer(tidyText, correct)
 	    },
 	    handleUserAnswer: function (e) {
 	        this.setState({userAnswer: e.target.value});
 	    },
 	    render: function () {
 	        return (
-	            React.createElement(ReactBootstrap.Panel, {header: "Input"}, 
+	            React.createElement(ReactBootstrap.Panel, {header: "Quiz mode"}, 
 	                "Final Answer", 
 	                React.createElement("b", null, React.createElement("font", {color: this.state.correct ? "green" : "red"}, this.state.finalAnswer)), 
 	                React.createElement("br", null), 
@@ -41761,8 +41794,6 @@
 	  React.createElement("input", {type: "checkbox", checkedLink: this.linkState('ignoreAccents')}), 
 	                "Ignore Accents"
 	                )
-	
-	
 	            )
 	        );
 	    }
@@ -41771,7 +41802,7 @@
 	module.exports = UserAnswer;
 
 /***/ },
-/* 512 */
+/* 513 */
 /***/ function(module, exports) {
 
 	function Utils () {}
@@ -41796,13 +41827,13 @@
 	module.exports = Utils;
 
 /***/ },
-/* 513 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var React = __webpack_require__(2),
 	    ReactBootstrap = __webpack_require__(263);
 	var LinkedStateMixin = __webpack_require__(258);
-	var UserAnswer = __webpack_require__(511);
+	var UserAnswer = __webpack_require__(512);
 	
 	var CustomOptions = React.createClass({displayName: "CustomOptions",
 	    mixins: [FluxMixin, LinkedStateMixin],
@@ -41829,12 +41860,12 @@
 	module.exports = CustomOptions;
 
 /***/ },
-/* 514 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(515);
+	    _ = __webpack_require__(516);
 	
 	var QuizStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -41862,8 +41893,6 @@
 	        };
 	    },
 	    handleNextQuestion: function (payload) {
-	        console.log("------------------------");
-	        console.log(payload);
 	        var enableIrregular = payload.enableIrregular;
 	        var useVosotros = payload.useVosotros;
 	        this.showAnswer = false;
@@ -41876,6 +41905,7 @@
 	            return this.handleNextQuestion(payload);
 	        }
 	        this.currentQuestion = newQuestion;
+	
 	        this.emit("change");
 	    },
 	    onLoadQuiz: function () {
@@ -41907,7 +41937,7 @@
 	module.exports = QuizStore;
 
 /***/ },
-/* 515 */
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -43461,36 +43491,44 @@
 
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(515);
+	    _ = __webpack_require__(516);
 	
 	var UserInputStore = Fluxxor.createStore({
 	    initialize: function (options) {
-	        this.userAnswer = '';
-	        this.finalAnswer = '';
+	        this.submittedAnswer = '';
 	        this.correct = false;
-	
+	        this.hasSubmittedAnswer = false;
 	        this.bindActions(
-	            Constants.NEXT_QUESTION, this.resetUserInput
+	            Constants.NEXT_QUESTION, this.resetUserInput,
+	            Constants.SUBMIT_ANSWER, this.onSubmitAnswer
 	        );
 	    },
 	    getState: function () {
 	        return {
-	            userAnswer: this.userAnswer,
-	            finalAnswer: this.finalAnswer,
-	            ignoreAccent: this.ignoreAccent,
-	            correct: this.correct
+	            submittedAnswer: this.submittedAnswer,
+	            correct: this.correct,
+	            hasSubmittedAnswer: this.hasSubmittedAnswer
 	        };
 	    },
 	    resetUserInput: function () {
-	        this.userAnswer = '';
-	        this.finalAnswer = '';
-	        this.ignoreAccent = false;
+	        this.submittedAnswer = '';
 	        this.correct = false;
+	        this.hasSubmittedAnswer = false;
+	        this.emit("change");
+	    },
+	    onSubmitAnswer: function(payload) {
+	        console.log("****submit answer");
+	        var submittedAnswer = payload.submittedAnswer;
+	        console.log(submittedAnswer);
+	        var correct = payload.correct;
+	        this.submittedAnswer = submittedAnswer;
+	        this.correct = correct;
+	        this.hasSubmittedAnswer = true;
 	        this.emit("change");
 	    }
 	});
@@ -43498,11 +43536,11 @@
 	module.exports = UserInputStore;
 
 /***/ },
-/* 517 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Constants = __webpack_require__(262),
-	    jquery = __webpack_require__(518);
+	    jquery = __webpack_require__(519);
 	var resp;
 	
 	var QuizClient = {
@@ -43534,12 +43572,15 @@
 	    },
 	    showAnswer: function () {
 	        this.dispatch(Constants.SHOW_ANSWER);
+	    },
+	    submitUserAnswer: function(submittedAnswer, correct) {
+	        this.dispatch(Constants.SUBMIT_ANSWER, {submittedAnswer: submittedAnswer, correct:correct});
 	    }
 	};
 
 
 /***/ },
-/* 518 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -53376,7 +53417,7 @@
 
 
 /***/ },
-/* 519 */
+/* 520 */
 /***/ function(module, exports) {
 
 

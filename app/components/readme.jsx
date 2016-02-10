@@ -1,0 +1,4 @@
+<div>
+<P>This app ensures that you get enough practice with your verbs. The app automatically generates flashcards to give you practice with many diverse combinations of pronouns, tenses, and verbs. The best way to learn verb endings is not to memorize conjugation tables but instead to practice conjugating the verbs in real time as you would in a conversation.</P>
+<P>The best part of this app is that it allows you to customize your practice session. You can use the app to focus on weak spots, help you keep up with a class or other tool, or to help improve your speed. You can select the tenses you want to include and whether you want to test your knowledge of irregulars. You only need to practice 'vosotros' if you're practicing for a trip to Spain. </P>
+</div>

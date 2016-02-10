@@ -19,39 +19,36 @@ var UserAnswer = React.createClass({
         var flux = this.getFlux();
         var UserInputStore = this.getFlux().store("UserInputStore");
         return {
-            userAnswer: UserInputStore.userAnswer,
+            userAnswer: '',
             finalAnswer: UserInputStore.finalAnswer,
             correct: UserInputStore.correct
         };
     },
     handleSubmit: function (e) {
-        console.log("STATE>>>");
-        console.log(this.state);
         e.preventDefault();
-        var text = this.state.userAnswer.trim();
-        if (!text) {
+        var tidyText = this.state.userAnswer.trim();
+        if (!tidyText) {
             return;
         }
         //check answer and change color
         //check if correct
         var correctAnswer = this.props.answer;
         if (this.state.ignoreAccents) {
-            text = Utils.accentsTidy(text);
-            correctAnswer = Utils.accentsTidy(text);
-            console.log("ignore accent!");
-            console.log(text);
+            tidyText = Utils.accentsTidy(tidyText);
+            correctAnswer = Utils.accentsTidy(correctAnswer);
         }
-        var correct = text == correctAnswer;
-        this.setState({finalAnswer: text});
+        var correct = tidyText == correctAnswer;
+        this.setState({finalAnswer: tidyText});//submitted
         this.setState({correct: correct});
-        this.setState({userAnswer: ''});
+        this.setState({userAnswer: ''}); //user input as being typed
+        this.getFlux().actions.submitUserAnswer(tidyText, correct)
     },
     handleUserAnswer: function (e) {
         this.setState({userAnswer: e.target.value});
     },
     render: function () {
         return (
-            <ReactBootstrap.Panel header="Input">
+            <ReactBootstrap.Panel header="Quiz mode">
                 Final Answer
                 <b><font color={this.state.correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
                 <br></br>
@@ -66,8 +63,6 @@ var UserAnswer = React.createClass({
   <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  />
                 Ignore Accents
                 </form>
-
-
             </ReactBootstrap.Panel>
         );
     }

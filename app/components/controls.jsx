@@ -14,8 +14,10 @@ var Controls = React.createClass({
     render: function () {
         return (
             <div>
+                <ReactBootstrap.ButtonToolbar>
                 <ReactBootstrap.Button bsStyle="success" onClick={this.onNextQuestion}>Next Question</ReactBootstrap.Button>
-                <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>Show Answer</ReactBootstrap.Button>
+                <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>Flip Card</ReactBootstrap.Button>
+                </ReactBootstrap.ButtonToolbar>
             </div>
         );
     },
@@ -23,7 +25,6 @@ var Controls = React.createClass({
         this.getFlux().actions.nextQuestion(this.linkState('enableIrregular').value, this.linkState('useVosotros').value);
     },
     onShowAnswer: function () {
-        //pass filters to show answer!
         this.getFlux().actions.showAnswer();
     }
 });

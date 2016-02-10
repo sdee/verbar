@@ -28,8 +28,6 @@ var QuizStore = Fluxxor.createStore({
         };
     },
     handleNextQuestion: function (payload) {
-        console.log("------------------------");
-        console.log(payload);
         var enableIrregular = payload.enableIrregular;
         var useVosotros = payload.useVosotros;
         this.showAnswer = false;
@@ -42,6 +40,7 @@ var QuizStore = Fluxxor.createStore({
             return this.handleNextQuestion(payload);
         }
         this.currentQuestion = newQuestion;
+
         this.emit("change");
     },
     onLoadQuiz: function () {
