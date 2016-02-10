@@ -24343,25 +24343,30 @@
 	        console.log(questions);
 	        var curr = this.state.currentQuestion;
 	        var card;
-	        if (this.state.hasSubmittedAnswer && curr.infinitive && this.state.showAnswer === false) {
-	            //feedback
+	        console.log("show answer state");
+	        console.log(this.state.showAnswer);
+	        if (this.state.hasSubmittedAnswer && curr.infinitive) {
+	            console.log("feedback");
 	            card = React.createElement(FeedbackCard, {correct: this.state.correct, correctAnswer: curr.answer, submittedAnswer: this.state.submittedAnswer})
 	        }
-	        else if (curr.infinitive && this.state.showAnswer === false) {
+	        else if (curr.infinitive && this.state.showAnswer==false) {
+	            console.log("verb");
 	            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense});
 	        }
-	        else if (curr.infinitive) { //add branch to user input
+	        else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input
+	            console.log("answer");
+	        console.log("show answer state");
+	        console.log(this.state.showAnswer);
 	            card = React.createElement(AnswerCard, {answer: curr.answer});
 	        }
 	        else {
+	            console.log("message");
 	            card = React.createElement(MsgCard, {msg: curr.text})
 	        }
 	        return (
 	            React.createElement("div", {id: "test"}, 
 	                React.createElement(ReactBootstrap.Panel, {header: "practice your verbs, eat your vegetables"}, 
-	                React.createElement("section", {className: "front"}, 
-	                card
-	                ), 
+	                card, 
 	                    React.createElement(Ctrls, {question: this.state.currentQuestion})
 	                ), 
 	                React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer}), 
@@ -24614,7 +24619,8 @@
 	    LOAD_QUIZ: "LOAD_QUIZ",
 	    LOAD_QUIZ_SUCCESS: "LOAD_QUIZ_SUCCESS",
 	    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL",
-	    SUBMIT_ANSWER: "SUBMIT_ANSWER"
+	    SUBMIT_ANSWER: "SUBMIT_ANSWER",
+	    RESET_ANSWER: "RESET_ANSWER"
 	}
 
 /***/ },
@@ -41609,7 +41615,11 @@
 	           return { };
 	       },
 	       render: function() {
-	       return (React.createElement("div", null, " ", this.props.msg));
+	       return (React.createElement("div", null, 
+	           React.createElement("section", {className: "front"}, 
+	       this.props.msg
+	               )
+	       ));
 	       }
 	});
 	
@@ -41631,9 +41641,15 @@
 	        return {};
 	    },
 	    render: function () {
-	        return (React.createElement("div", null, " ", this.props.pronoun, ",", 
-	            React.createElement("b", null, this.props.infinitive), 
-	            "(", this.props.tense, ")"));
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement("section", {className: "front"}, 
+	                    this.props.pronoun, ",", 
+	                    React.createElement("b", null, this.props.infinitive), 
+	                    "(", this.props.tense, ")"
+	                )
+	            )
+	        );
 	    }
 	});
 	
@@ -41653,7 +41669,12 @@
 	        return {};
 	    },
 	    render: function () {
-	        return (React.createElement("div", null, " ", this.props.answer));
+	        return (React.createElement("div", null, 
+	            React.createElement("section", {className: "back"}, 
+	        this.props.answer
+	            )
+	        )
+	        );
 	    }
 	});
 	
@@ -41675,11 +41696,14 @@
 	           return { };
 	       },
 	       render: function() {
+	           console.log("CORRECT ANSWER ");
+	           console.log(this.props.correctAnswer);
 	       return (
 	           React.createElement("div", null, 
+	               React.createElement("section", {className: "back"}, 
 	           React.createElement("font", {color: this.props.correct ? "green" : "red"}, this.props.submittedAnswer), 
-	               React.createElement("br", null), 
-	           !this.props.correct ? this.props.correctAnswer: ''
+	           React.createElement("font", {color: "black"}, this.props.correct==false ? this.props.correctAnswer: '')
+	                   )
 	           )
 	       )
 	       }
@@ -43503,7 +43527,8 @@
 	        this.hasSubmittedAnswer = false;
 	        this.bindActions(
 	            Constants.NEXT_QUESTION, this.resetUserInput,
-	            Constants.SUBMIT_ANSWER, this.onSubmitAnswer
+	            Constants.SUBMIT_ANSWER, this.onSubmitAnswer,
+	            Constants.RESET_ANSWER, this.resetUserInput
 	        );
 	    },
 	    getState: function () {
@@ -43571,6 +43596,9 @@
 	    },
 	    submitUserAnswer: function(submittedAnswer, correct) {
 	        this.dispatch(Constants.SUBMIT_ANSWER, {submittedAnswer: submittedAnswer, correct:correct});
+	    },
+	    resetAnswer: function() {
+	        this.dispatch(Constants.RESET_ANSWER);
 	    }
 	};
 
@@ -77761,25 +77789,30 @@
 		        console.log(questions);
 		        var curr = this.state.currentQuestion;
 		        var card;
-		        if (this.state.hasSubmittedAnswer && curr.infinitive && this.state.showAnswer === false) {
-		            //feedback
+		        console.log("show answer state");
+		        console.log(this.state.showAnswer);
+		        if (this.state.hasSubmittedAnswer && curr.infinitive) {
+		            console.log("feedback");
 		            card = React.createElement(FeedbackCard, {correct: this.state.correct, correctAnswer: curr.answer, submittedAnswer: this.state.submittedAnswer})
 		        }
-		        else if (curr.infinitive && this.state.showAnswer === false) {
+		        else if (curr.infinitive && this.state.showAnswer==false) {
+		            console.log("verb");
 		            card = React.createElement(VerbCard, {pronoun: curr.pronoun, infinitive: curr.infinitive, tense: curr.tense});
 		        }
-		        else if (curr.infinitive) { //add branch to user input
+		        else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input
+		            console.log("answer");
+		        console.log("show answer state");
+		        console.log(this.state.showAnswer);
 		            card = React.createElement(AnswerCard, {answer: curr.answer});
 		        }
 		        else {
+		            console.log("message");
 		            card = React.createElement(MsgCard, {msg: curr.text})
 		        }
 		        return (
 		            React.createElement("div", {id: "test"}, 
 		                React.createElement(ReactBootstrap.Panel, {header: "practice your verbs, eat your vegetables"}, 
-		                React.createElement("section", {className: "front"}, 
-		                card
-		                ), 
+		                card, 
 		                    React.createElement(Ctrls, {question: this.state.currentQuestion})
 		                ), 
 		                React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer}), 
@@ -78032,7 +78065,8 @@
 		    LOAD_QUIZ: "LOAD_QUIZ",
 		    LOAD_QUIZ_SUCCESS: "LOAD_QUIZ_SUCCESS",
 		    LOAD_QUIZ_FAIL: "LOAD_QUIZ_FAIL",
-		    SUBMIT_ANSWER: "SUBMIT_ANSWER"
+		    SUBMIT_ANSWER: "SUBMIT_ANSWER",
+		    RESET_ANSWER: "RESET_ANSWER"
 		}
 	
 	/***/ },
@@ -95027,7 +95061,11 @@
 		           return { };
 		       },
 		       render: function() {
-		       return (React.createElement("div", null, " ", this.props.msg));
+		       return (React.createElement("div", null, 
+		           React.createElement("section", {className: "front"}, 
+		       this.props.msg
+		               )
+		       ));
 		       }
 		});
 		
@@ -95049,9 +95087,15 @@
 		        return {};
 		    },
 		    render: function () {
-		        return (React.createElement("div", null, " ", this.props.pronoun, ",", 
-		            React.createElement("b", null, this.props.infinitive), 
-		            "(", this.props.tense, ")"));
+		        return (
+		            React.createElement("div", null, 
+		                React.createElement("section", {className: "front"}, 
+		                    this.props.pronoun, ",", 
+		                    React.createElement("b", null, this.props.infinitive), 
+		                    "(", this.props.tense, ")"
+		                )
+		            )
+		        );
 		    }
 		});
 		
@@ -95071,7 +95115,12 @@
 		        return {};
 		    },
 		    render: function () {
-		        return (React.createElement("div", null, " ", this.props.answer));
+		        return (React.createElement("div", null, 
+		            React.createElement("section", {className: "back"}, 
+		        this.props.answer
+		            )
+		        )
+		        );
 		    }
 		});
 		
@@ -95093,11 +95142,14 @@
 		           return { };
 		       },
 		       render: function() {
+		           console.log("CORRECT ANSWER ");
+		           console.log(this.props.correctAnswer);
 		       return (
 		           React.createElement("div", null, 
+		               React.createElement("section", {className: "back"}, 
 		           React.createElement("font", {color: this.props.correct ? "green" : "red"}, this.props.submittedAnswer), 
-		               React.createElement("br", null), 
-		           !this.props.correct ? this.props.correctAnswer: ''
+		           React.createElement("font", {color: "black"}, this.props.correct==false ? this.props.correctAnswer: '')
+		                   )
 		           )
 		       )
 		       }
@@ -96921,7 +96973,8 @@
 		        this.hasSubmittedAnswer = false;
 		        this.bindActions(
 		            Constants.NEXT_QUESTION, this.resetUserInput,
-		            Constants.SUBMIT_ANSWER, this.onSubmitAnswer
+		            Constants.SUBMIT_ANSWER, this.onSubmitAnswer,
+		            Constants.RESET_ANSWER, this.resetUserInput
 		        );
 		    },
 		    getState: function () {
@@ -96989,6 +97042,9 @@
 		    },
 		    submitUserAnswer: function(submittedAnswer, correct) {
 		        this.dispatch(Constants.SUBMIT_ANSWER, {submittedAnswer: submittedAnswer, correct:correct});
+		    },
+		    resetAnswer: function() {
+		        this.dispatch(Constants.RESET_ANSWER);
 		    }
 		};
 	

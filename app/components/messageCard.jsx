@@ -8,7 +8,11 @@ var MsgCard = React.createClass({
            return { };
        },
        render: function() {
-       return (<div> {this.props.msg}</div>);
+       return (<div>
+           <section className="front">
+       {this.props.msg}
+               </section>
+       </div>);
        }
 });
 

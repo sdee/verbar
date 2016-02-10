@@ -34,5 +34,8 @@ module.exports = {
     },
     submitUserAnswer: function(submittedAnswer, correct) {
         this.dispatch(Constants.SUBMIT_ANSWER, {submittedAnswer: submittedAnswer, correct:correct});
+    },
+    resetAnswer: function() {
+        this.dispatch(Constants.RESET_ANSWER);
     }
 };

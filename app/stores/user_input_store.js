@@ -9,7 +9,8 @@ var UserInputStore = Fluxxor.createStore({
         this.hasSubmittedAnswer = false;
         this.bindActions(
             Constants.NEXT_QUESTION, this.resetUserInput,
-            Constants.SUBMIT_ANSWER, this.onSubmitAnswer
+            Constants.SUBMIT_ANSWER, this.onSubmitAnswer,
+            Constants.RESET_ANSWER, this.resetUserInput
         );
     },
     getState: function () {

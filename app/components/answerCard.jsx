@@ -8,7 +8,12 @@ var AnswerCard = React.createClass({
         return {};
     },
     render: function () {
-        return (<div> {this.props.answer}</div>);
+        return (<div>
+            <section className="back">
+        {this.props.answer}
+            </section>
+        </div>
+        );
     }
 });
 

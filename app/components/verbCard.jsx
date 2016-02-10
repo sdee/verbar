@@ -10,9 +10,15 @@ var VerbCard = React.createClass({
         return {};
     },
     render: function () {
-        return (<div> {this.props.pronoun},
-            <b>{this.props.infinitive}</b>
-            ({this.props.tense})</div>);
+        return (
+            <div>
+                <section className="front">
+                    {this.props.pronoun},
+                    <b>{this.props.infinitive}</b>
+                    ({this.props.tense})
+                </section>
+            </div>
+        );
     }
 });
 

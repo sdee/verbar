@@ -59,13 +59,13 @@ section {
   height: 100%;
   max-height: 200px;
 }
-article.flashcard section.front {
-  color: #BA1F53;
-  background: #DDD;
+.front {
+  color: #000000;
+  background: #ffffff;
   height: 100%;
 }
-article.flashcard section.back {
-  color: #DDD;
-  background: #C85073;
-  height: 0%;
+.back {
+  color: #000000;
+  background: #fff6de;
+  height: 100%;
 }

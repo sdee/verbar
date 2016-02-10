@@ -10,11 +10,15 @@ var FeedbackCard = React.createClass({
            return { };
        },
        render: function() {
+           console.log("CORRECT ANSWER ");
+           console.log(this.props.correctAnswer);
        return (
            <div>
+               <section className="back">
            <font color={this.props.correct ? "green" : "red"}>{this.props.submittedAnswer}</font>
-               <br></br>
-           {!this.props.correct ? this.props.correctAnswer: ''}
+           <font color="black">->{this.props.correct==false ? this.props.correctAnswer: ''}</font>
+                   
+                   </section>
            </div>
        )
        }

@@ -40,25 +40,30 @@ var Quiz = React.createClass({
         console.log(questions);
         var curr = this.state.currentQuestion;
         var card;
-        if (this.state.hasSubmittedAnswer && curr.infinitive && this.state.showAnswer === false) {
-            //feedback
+        console.log("show answer state");
+        console.log(this.state.showAnswer);
+        if (this.state.hasSubmittedAnswer && curr.infinitive) {
+            console.log("feedback");
             card = <FeedbackCard correct={this.state.correct} correctAnswer={curr.answer} submittedAnswer={this.state.submittedAnswer}/>
         }
-        else if (curr.infinitive && this.state.showAnswer === false) {
+        else if (curr.infinitive && this.state.showAnswer==false) {
+            console.log("verb");
             card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
         }
-        else if (curr.infinitive) { //add branch to user input
+        else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input
+            console.log("answer");
+        console.log("show answer state");
+        console.log(this.state.showAnswer);
             card = <AnswerCard answer={curr.answer}/>;
         }
         else {
+            console.log("message");
             card = <MsgCard msg = {curr.text}/>
         }
         return (
             <div id="test">
                 <ReactBootstrap.Panel header="practice your verbs, eat your vegetables">
-                <section className="front">
                 {card}
-                </section>
                     <Ctrls question={this.state.currentQuestion}/>
                 </ReactBootstrap.Panel>
                 <UserAnswer answer={this.state.currentQuestion.answer}/>
