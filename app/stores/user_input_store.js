@@ -26,9 +26,7 @@ var UserInputStore = Fluxxor.createStore({
         this.emit("change");
     },
     onSubmitAnswer: function(payload) {
-        console.log("****submit answer");
         var submittedAnswer = payload.submittedAnswer;
-        console.log(submittedAnswer);
         var correct = payload.correct;
         this.submittedAnswer = submittedAnswer;
         this.correct = correct;

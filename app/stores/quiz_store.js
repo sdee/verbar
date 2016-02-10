@@ -40,7 +40,6 @@ var QuizStore = Fluxxor.createStore({
             return this.handleNextQuestion(payload);
         }
         this.currentQuestion = newQuestion;
-
         this.emit("change");
     },
     onLoadQuiz: function () {
