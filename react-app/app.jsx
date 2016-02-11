@@ -1,8 +1,12 @@
 var React = require("react"),
     ReactDOM = require('react-dom'),
     Fluxxor = require("fluxxor"),
-    FluxMixin = Fluxxor.FluxMixin(React);
+    FluxMixin = Fluxxor.FluxMixin(React),
+    actions = require("./actions"),
+    Guide = require("./components/application.jsx");
+var stores = {
 
+};
 
 var flux = new Fluxxor.Flux(stores, actions);
 window.flux = flux;
