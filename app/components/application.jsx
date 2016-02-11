@@ -43,7 +43,6 @@ var Quiz = React.createClass({
             card = <FeedbackCard correct={this.state.correct} correctAnswer={curr.answer} submittedAnswer={this.state.submittedAnswer}/>
         }
         else if (curr.infinitive && this.state.showAnswer==false) {
-            console.log("verb");
             card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
         }
         else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input

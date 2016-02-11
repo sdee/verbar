@@ -7,7 +7,8 @@ var FilterStore = Fluxxor.createStore({
         this.useVosotros = false;
         this.enableIrregular = false;
         this.bindActions(
-            Constants.SET_VOSOTROS, this.setVosotros
+            Constants.SET_VOSOTROS, this.setVosotros,
+            Constants.SET_IRREGULAR, this.setIrregular
         );
     },
     getState: function () {
@@ -16,9 +17,13 @@ var FilterStore = Fluxxor.createStore({
         };
     },
     setVosotros: function (payload) {
-        console.log("SET VOSOTROS>>>>>");
         var useVosotros = payload.useVosotros;
         this.useVosotros = useVosotros;
+        this.emit("change");
+    },
+    setIrregular: function (payload) {
+        var enableIrregular = payload.enableIrregular;
+        this.enableIrregular = enableIrregular;
         this.emit("change");
     }
 });

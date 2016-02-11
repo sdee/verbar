@@ -12,7 +12,8 @@ var Controls = React.createClass({
         var flux = this.getFlux();
         var FilterStore = this.getFlux().store("FilterStore");
         return {
-            useVosotros: FilterStore.useVosotros
+            useVosotros: FilterStore.useVosotros,
+            enableIrregular: FilterStore.enableIrregular
         };
     },
     render: function () {
@@ -26,7 +27,7 @@ var Controls = React.createClass({
         );
     },
     onNextQuestion: function () {
-        this.getFlux().actions.nextQuestion(this.linkState('enableIrregular').value, this.state.useVosotros);
+        this.getFlux().actions.nextQuestion(this.state.enableIrregular, this.state.useVosotros);
     },
     onShowAnswer: function () {
         this.getFlux().actions.showAnswer();
