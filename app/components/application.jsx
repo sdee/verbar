@@ -54,18 +54,13 @@ var Quiz = React.createClass({
         return (
             <div id="test">
                 <ReactBootstrap.Panel header="practice your verbs, eat your vegetables">
-                <div id ="card" onClick={this.onShowAnswer}>
                 {card}
-                <div>
                     <Ctrls question={this.state.currentQuestion}/>
                 </ReactBootstrap.Panel>
                 <UserAnswer answer={this.state.currentQuestion.answer}/>
                 <CustomOptions/>
             </div>
         );
-    },
-    onShowAnswer: function () {
-        this.getFlux().actions.showAnswer();
     }
 });
 
