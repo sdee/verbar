@@ -59,7 +59,7 @@ var UserAnswer = React.createClass({
                         value={this.state.userAnswer}
                         onChange={this.handleUserAnswer}
                     />
-                    <ReactBootstrap.ButtonInput type="submit" value="post" bsStyle="success" bsSize="medium" disabled={this.state.disabled} />
+                    <ReactBootstrap.ButtonInput type="submit" value="post" bsStyle="success" bsSize="small" disabled={this.state.disabled} />
   <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  />
                 Ignore Accents
                 </form>

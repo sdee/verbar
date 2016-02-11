@@ -37,5 +37,11 @@ module.exports = {
     },
     resetAnswer: function() {
         this.dispatch(Constants.RESET_ANSWER);
+    },
+    setVosotros: function(useVosotros) {
+        this.dispatch(Constants.SET_VOSOTROS, {useVosotros: useVosotros})
+    },
+    setIrregular: function(enableIrregular) {
+        this.dispatch(Constants.SET_IRREGULAR, {enableIrregular: enableIrregular})
     }
 };

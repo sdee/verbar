@@ -7,11 +7,13 @@ var React = require("react"),
 var Quiz = require("./components/application.jsx"),
     QuizStore = require("./stores/quiz_store"),
     UserInputStore = require("./stores/user_input_store"),
+    FilterStore = require("./stores/filter_store")
     actions = require("./actions");
 
 var stores = {
     QuizStore: new QuizStore(),
-    UserInputStore: new UserInputStore()
+    UserInputStore: new UserInputStore(),
+    FilterStore: new FilterStore()
 };
 
 var flux = new Fluxxor.Flux(stores, actions);

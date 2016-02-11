@@ -15,7 +15,7 @@ var MsgCard = require("./messageCard.jsx"),
     UserAnswer = require("./userAnswer.jsx");
 
 var Quiz = React.createClass({
-    mixins: [FluxMixin, StoreWatchMixin("QuizStore", "UserInputStore"), LinkedStateMixin],
+    mixins: [FluxMixin, StoreWatchMixin("QuizStore", "UserInputStore", "FilterStore"), LinkedStateMixin],
     // Required by StoreWatchMixin
     getStateFromFlux: function () {
         var flux = this.getFlux();
@@ -37,13 +37,9 @@ var Quiz = React.createClass({
     },
     render: function () {
         var questions = this.state.quiz;
-        console.log(questions);
         var curr = this.state.currentQuestion;
         var card;
-        console.log("show answer state");
-        console.log(this.state.showAnswer);
         if (this.state.hasSubmittedAnswer && curr.infinitive) {
-            console.log("feedback");
             card = <FeedbackCard correct={this.state.correct} correctAnswer={curr.answer} submittedAnswer={this.state.submittedAnswer}/>
         }
         else if (curr.infinitive && this.state.showAnswer==false) {
@@ -51,13 +47,9 @@ var Quiz = React.createClass({
             card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
         }
         else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input
-            console.log("answer");
-        console.log("show answer state");
-        console.log(this.state.showAnswer);
             card = <AnswerCard answer={curr.answer}/>;
         }
         else {
-            console.log("message");
             card = <MsgCard msg = {curr.text}/>
         }
         return (
