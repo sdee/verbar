@@ -25,20 +25,34 @@ var QuizStore = Fluxxor.createStore({
             showAnswer: this.showAnswer
         };
     },
-    //holds most
+    //holds most of business logic
     handleNextQuestion: function (payload) {
         var enableIrregular = payload.enableIrregular;
         var useVosotros = payload.useVosotros;
+        var allowPresent = payload.allowPresent;
+        var allowPreterite = payload.allowPreterite;
+        var allowImperfect = payload.allowImperfect;
+        var allowConditional = payload.allowConditional;
+        var allowFuture = payload.allowFuture;
+
         this.showAnswer = false;
+        //select a random question from set of questions
         var randIdx = Math.floor(Math.random() * this.quiz.length);
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
-        //encapsulate filters into function
+        //see if this question passes filter
         var failIrregular = enableIrregular != true && newQuestion.irregular === true;
         var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
-        if (failIrregular || failVosotros) {
+        var failPresent = allowPresent != true && newQuestion.tense === "present";
+        var failPreterite = allowPreterite != true && newQuestion.tense === "preterite";
+        var failImperfect = allowImperfect != true && newQuestion.tense === "imperfect";
+        var failConditional = allowConditional != true && newQuestion.tense === "conditional";
+        var failFuture = allowFuture != true && newQuestion.tense === "future";
+
+        if (failIrregular || failVosotros || failPresent ||failPreterite ||failImperfect || failConditional || failFuture) {//if fails, select a new question
             return this.handleNextQuestion(payload);
         }
+        //Insert error state
         this.currentQuestion = newQuestion;
         this.emit("change");
     },

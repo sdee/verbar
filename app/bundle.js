@@ -41741,8 +41741,13 @@
 	        var flux = this.getFlux();
 	        var FilterStore = this.getFlux().store("FilterStore");
 	        return {
+	            enableIrregular: FilterStore.enableIrregular,
 	            useVosotros: FilterStore.useVosotros,
-	            enableIrregular: FilterStore.enableIrregular
+	            allowPresent: FilterStore.allowPresent,
+	            allowPreterite: FilterStore.allowPreterite,
+	            allowImperfect: FilterStore.allowImperfect,
+	            allowConditional: FilterStore.allowConditional,
+	            allowFuture: FilterStore.allowFuture
 	        };
 	    },
 	    render: function () {
@@ -41756,7 +41761,14 @@
 	        );
 	    },
 	    onNextQuestion: function () {
-	        this.getFlux().actions.nextQuestion(this.state.enableIrregular, this.state.useVosotros);
+	        this.getFlux().actions.nextQuestion(
+	            this.state.enableIrregular,
+	            this.state.useVosotros,
+	            this.state.allowPresent,
+	            this.state.allowPreterite,
+	            this.state.allowImperfect,
+	            this.state.allowConditional,
+	            this.state.allowFuture);
 	    },
 	    onShowAnswer: function () {
 	        this.getFlux().actions.showAnswer();
@@ -42102,7 +42114,6 @@
 	        this.loading = false;
 	        this.showAnswer = false;
 	        this.seenQuestions = [];
-	        this.enableIrregular = false;
 	        this.bindActions(
 	            Constants.NEXT_QUESTION, this.handleNextQuestion,
 	            Constants.SHOW_ANSWER, this.onShowAnswer,
@@ -42115,21 +42126,34 @@
 	        return {
 	            questions: this.quiz.questions,
 	            currentQuestion: this.currentQuestion,
-	            showAnswer: this.showAnswer,
-	            enableIrregular: this.enableIrregular
+	            showAnswer: this.showAnswer
 	        };
 	    },
+	    //holds most of business logic
 	    handleNextQuestion: function (payload) {
 	        var enableIrregular = payload.enableIrregular;
 	        var useVosotros = payload.useVosotros;
+	        var allowPresent = payload.allowPresent;
+	        var allowPreterite = payload.allowPreterite;
+	        var allowImperfect = payload.allowImperfect;
+	        var allowConditional = payload.allowConditional;
+	        var allowFuture = payload.allowFuture;
+	
 	        this.showAnswer = false;
+	        //select a random question from set of questions
 	        var randIdx = Math.floor(Math.random() * this.quiz.length);
 	        this.seenQuestions.push(randIdx);
 	        var newQuestion = this.quiz[randIdx];
-	        //encapsulate filters into function
+	        //see if this question passes filter
 	        var failIrregular = enableIrregular != true && newQuestion.irregular === true;
 	        var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
-	        if (failIrregular || failVosotros) {
+	        var failPresent = allowPresent != true && newQuestion.tense === "present";
+	        var failPreterite = allowPreterite != true && newQuestion.tense === "preterite";
+	        var failImperfect = allowImperfect != true && newQuestion.tense === "imperfect";
+	        var failConditional = allowConditional != true && newQuestion.tense === "conditional";
+	        var failFuture = allowFuture != true && newQuestion.tense === "future";
+	
+	        if (failIrregular || failVosotros || failPresent ||failPreterite ||failImperfect || failConditional || failFuture) {//if fails, select a new question
 	            return this.handleNextQuestion(payload);
 	        }
 	        this.currentQuestion = newQuestion;
@@ -43870,8 +43894,15 @@
 	            this.dispatch(Constants.LOAD_QUIZ_FAIL, {error: error});
 	        }.bind(this));
 	    },
-	    nextQuestion: function (enableIrregular, useVosotros) {
-	        this.dispatch(Constants.NEXT_QUESTION, {enableIrregular: enableIrregular, useVosotros: useVosotros});
+	    nextQuestion: function (enableIrregular, useVosotros, allowPresent, allowPreterite, allowImperfect, allowConditional, allowFuture) {
+	        this.dispatch(Constants.NEXT_QUESTION,
+	            {enableIrregular: enableIrregular,
+	                useVosotros: useVosotros,
+	            allowPresent: allowPresent,
+	            allowPreterite: allowPreterite,
+	            allowImperfect: allowImperfect,
+	            allowConditional: allowConditional,
+	            allowFuture: allowFuture});
 	    },
 	    showAnswer: function () {
 	        this.dispatch(Constants.SHOW_ANSWER);

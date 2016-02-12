@@ -26,8 +26,15 @@ module.exports = {
             this.dispatch(Constants.LOAD_QUIZ_FAIL, {error: error});
         }.bind(this));
     },
-    nextQuestion: function (enableIrregular, useVosotros) {
-        this.dispatch(Constants.NEXT_QUESTION, {enableIrregular: enableIrregular, useVosotros: useVosotros});
+    nextQuestion: function (enableIrregular, useVosotros, allowPresent, allowPreterite, allowImperfect, allowConditional, allowFuture) {
+        this.dispatch(Constants.NEXT_QUESTION,
+            {enableIrregular: enableIrregular,
+                useVosotros: useVosotros,
+            allowPresent: allowPresent,
+            allowPreterite: allowPreterite,
+            allowImperfect: allowImperfect,
+            allowConditional: allowConditional,
+            allowFuture: allowFuture});
     },
     showAnswer: function () {
         this.dispatch(Constants.SHOW_ANSWER);

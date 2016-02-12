@@ -12,8 +12,13 @@ var Controls = React.createClass({
         var flux = this.getFlux();
         var FilterStore = this.getFlux().store("FilterStore");
         return {
+            enableIrregular: FilterStore.enableIrregular,
             useVosotros: FilterStore.useVosotros,
-            enableIrregular: FilterStore.enableIrregular
+            allowPresent: FilterStore.allowPresent,
+            allowPreterite: FilterStore.allowPreterite,
+            allowImperfect: FilterStore.allowImperfect,
+            allowConditional: FilterStore.allowConditional,
+            allowFuture: FilterStore.allowFuture
         };
     },
     render: function () {
@@ -29,7 +34,12 @@ var Controls = React.createClass({
     onNextQuestion: function () {
         this.getFlux().actions.nextQuestion(
             this.state.enableIrregular,
-            this.state.useVosotros);
+            this.state.useVosotros,
+            this.state.allowPresent,
+            this.state.allowPreterite,
+            this.state.allowImperfect,
+            this.state.allowConditional,
+            this.state.allowFuture);
     },
     onShowAnswer: function () {
         this.getFlux().actions.showAnswer();
