@@ -24,7 +24,7 @@ var IrregularCheckbox = React.createClass({
   },
   handleClick: function(e) {
       this.setState({checked: e.target.checked});
-      this.getFlux().actions.setIrregular(e.target.checked);
+      this.getFlux().actions.setIrregular(e.target.checked);//tell store
   }
 });
 

@@ -46,7 +46,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(1);
-	module.exports = __webpack_require__(523);
+	module.exports = __webpack_require__(524);
 
 
 /***/ },
@@ -60,10 +60,10 @@
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin;
 	
 	var Quiz = __webpack_require__(257),
-	    QuizStore = __webpack_require__(517),
-	    UserInputStore = __webpack_require__(519),
-	    FilterStore = __webpack_require__(520)
-	    actions = __webpack_require__(521);
+	    QuizStore = __webpack_require__(518),
+	    UserInputStore = __webpack_require__(520),
+	    FilterStore = __webpack_require__(521)
+	    actions = __webpack_require__(522);
 	
 	var stores = {
 	    QuizStore: new QuizStore(),
@@ -41867,7 +41867,8 @@
 	    ReactBootstrap = __webpack_require__(263);
 	var LinkedStateMixin = __webpack_require__(258),
 	    VosotrosCheckbox= __webpack_require__(515),
-	    IrregularCheckbox= __webpack_require__(516);
+	    IrregularCheckbox= __webpack_require__(516),
+	    TensesCheckgroup= __webpack_require__(517);
 	var UserAnswer = __webpack_require__(512);
 	
 	var CustomOptions = React.createClass({displayName: "CustomOptions",
@@ -41883,7 +41884,8 @@
 	            React.createElement("div", null, 
 	                React.createElement(ReactBootstrap.Panel, {header: "Customize"}, 
 	                React.createElement(IrregularCheckbox, null), 
-	                React.createElement(VosotrosCheckbox, null)
+	                React.createElement(VosotrosCheckbox, null), 
+	                    React.createElement(TensesCheckgroup, null)
 	                )
 	            )
 	        );
@@ -41958,7 +41960,7 @@
 	  },
 	  handleClick: function(e) {
 	      this.setState({checked: e.target.checked});
-	      this.getFlux().actions.setIrregular(e.target.checked);
+	      this.getFlux().actions.setIrregular(e.target.checked);//tell store
 	  }
 	});
 	
@@ -41968,9 +41970,116 @@
 /* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
+	React = __webpack_require__(2),
+	    Fluxxor = __webpack_require__(160),
+	    ReactBootstrap = __webpack_require__(263),
+	    FluxMixin = Fluxxor.FluxMixin(React);
+	
+	var TensesCheckgroup = React.createClass({displayName: "TensesCheckgroup",
+	    mixins: [FluxMixin],
+	    getInitialState: function () {
+	        return {
+	            indicativeChecked: this.props.checked || false,
+	            presentChecked: this.props.checked || false,
+	            pretChecked: this.props.checked || false,
+	            imperfectChecked: this.props.checked || false,
+	            conditionalChecked: this.props.checked || false,
+	            futureChecked: this.props.checked || false
+	        }
+	    },
+	    render: function() {
+	        return (
+	            React.createElement("div", null, 
+	                 React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "indicative_checkbox", 
+	                        checked: this.state.indicativeChecked, 
+	                        onClick: this.handleIndicativeClick, 
+	                        value: "indicative_checkbox"}), 
+	                    "indicative"
+	                ), 
+	                React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "present_checkbox", 
+	                        checked: this.state.presentChecked, 
+	                        onClick: this.handlePresentClick, 
+	                        value: "present_checkbox"}), 
+	                    "present"
+	                ), 
+	                React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "pret_checkbox", 
+	                        checked: this.state.pretChecked, 
+	                        onClick: this.handlePretClick, 
+	                        value: "pret_checkbox"}), 
+	                    "preterite"
+	                ), 
+	                  React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "imperfect_checkbox", 
+	                        checked: this.state.imperfectChecked, 
+	                        onClick: this.handleImperfectClick, 
+	                        value: "pret_checkbox"}), 
+	                    "imperfect"
+	                ), 
+	                  React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "conditional_checkbox", 
+	                        checked: this.state.conditionalChecked, 
+	                        onClick: this.handleConditionalClick, 
+	                        value: "pret_checkbox"}), 
+	                    "conditional"
+	                ), 
+	                   React.createElement("label", null, 
+	                    React.createElement("input", {type: "checkbox", 
+	                        name: "future_checkbox", 
+	                        checked: this.state.futureChecked, 
+	                        onClick: this.handleFutureClick, 
+	                        value: "pret_checkbox"}), 
+	                    "future"
+	                )
+	            )
+	        );
+	    },
+	    handleIndicativeClick: function (e) {
+	        this.setState({indicativeChecked: e.target.checked});
+	        this.handlePresentClick(e);
+	        this.handlePretClick(e);
+	        this.handleImperfectClick(e);
+	        this.handleConditionalClick(e);
+	        this.handleFutureClick(e);
+	    },
+	        handlePresentClick: function (e) {
+	            console.log("present click");
+	        this.setState({presentChecked: e.target.checked});
+	    },
+	        handlePretClick: function (e) {
+	            console.log("pret click");
+	        this.setState({pretChecked: e.target.checked});
+	    },
+	     handleImperfectClick: function (e) {
+	         console.log("imperfect click");
+	        this.setState({imperfectChecked: e.target.checked});
+	    },
+	    handleConditionalClick: function (e) {
+	        console.log("conditional click");
+	        this.setState({conditionalChecked: e.target.checked});
+	    },
+	    handleFutureClick: function(e) {
+	        console.log("future click");
+	        this.setState({futureChecked: e.target.checked});
+	    }
+	});
+	
+	module.exports = TensesCheckgroup;
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(518);
+	    _ = __webpack_require__(519);
 	
 	var QuizStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -42037,7 +42146,7 @@
 	module.exports = QuizStore;
 
 /***/ },
-/* 518 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -43591,12 +43700,12 @@
 
 
 /***/ },
-/* 519 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(518);
+	    _ = __webpack_require__(519);
 	
 	var UserInputStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -43635,12 +43744,12 @@
 	module.exports = UserInputStore;
 
 /***/ },
-/* 520 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Fluxxor = __webpack_require__(160),
 	    Constants = __webpack_require__(262),
-	    _ = __webpack_require__(518);
+	    _ = __webpack_require__(519);
 	
 	var FilterStore = Fluxxor.createStore({
 	    initialize: function (options) {
@@ -43671,11 +43780,11 @@
 	module.exports = FilterStore;
 
 /***/ },
-/* 521 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Constants = __webpack_require__(262),
-	    jquery = __webpack_require__(522);
+	    jquery = __webpack_require__(523);
 	var resp;
 	
 	var QuizClient = {
@@ -43724,7 +43833,7 @@
 
 
 /***/ },
-/* 522 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -53561,7 +53670,7 @@
 
 
 /***/ },
-/* 523 */
+/* 524 */
 /***/ function(module, exports) {
 
 

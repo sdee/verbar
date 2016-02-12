@@ -2,7 +2,8 @@ var React = require("react"),
     ReactBootstrap = require("react-bootstrap");
 var LinkedStateMixin = require('react-addons-linked-state-mixin'),
     VosotrosCheckbox= require("./filters/vosotros_checkbox.jsx"),
-    IrregularCheckbox= require("./filters/irregular_checkbox.jsx");
+    IrregularCheckbox= require("./filters/irregular_checkbox.jsx"),
+    TensesCheckgroup= require("./filters/tenses_checkgroup.jsx");
 var UserAnswer = require("./userAnswer.jsx");
 
 var CustomOptions = React.createClass({
@@ -19,6 +20,7 @@ var CustomOptions = React.createClass({
                 <ReactBootstrap.Panel header="Customize">
                 <IrregularCheckbox/>
                 <VosotrosCheckbox/>
+                    <TensesCheckgroup/>
                 </ReactBootstrap.Panel>
             </div>
         );
