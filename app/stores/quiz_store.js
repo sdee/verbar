@@ -10,7 +10,6 @@ var QuizStore = Fluxxor.createStore({
         this.loading = false;
         this.showAnswer = false;
         this.seenQuestions = [];
-        this.enableIrregular = false;
         this.bindActions(
             Constants.NEXT_QUESTION, this.handleNextQuestion,
             Constants.SHOW_ANSWER, this.onShowAnswer,
@@ -23,10 +22,10 @@ var QuizStore = Fluxxor.createStore({
         return {
             questions: this.quiz.questions,
             currentQuestion: this.currentQuestion,
-            showAnswer: this.showAnswer,
-            enableIrregular: this.enableIrregular
+            showAnswer: this.showAnswer
         };
     },
+    //holds most
     handleNextQuestion: function (payload) {
         var enableIrregular = payload.enableIrregular;
         var useVosotros = payload.useVosotros;

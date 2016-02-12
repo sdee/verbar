@@ -27,7 +27,9 @@ var Controls = React.createClass({
         );
     },
     onNextQuestion: function () {
-        this.getFlux().actions.nextQuestion(this.state.enableIrregular, this.state.useVosotros);
+        this.getFlux().actions.nextQuestion(
+            this.state.enableIrregular,
+            this.state.useVosotros);
     },
     onShowAnswer: function () {
         this.getFlux().actions.showAnswer();
