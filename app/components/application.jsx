@@ -42,10 +42,10 @@ var Quiz = React.createClass({
         if (this.state.hasSubmittedAnswer && curr.infinitive) {
             card = <FeedbackCard correct={this.state.correct} correctAnswer={curr.answer} submittedAnswer={this.state.submittedAnswer}/>
         }
-        else if (curr.infinitive && this.state.showAnswer==false) {
+        else if (curr.infinitive && this.state.showAnswer == false) {
             card = <VerbCard pronoun={curr.pronoun} infinitive={curr.infinitive} tense={curr.tense} />;
         }
-        else if (curr.infinitive && this.state.showAnswer==true) { //add branch to user input
+        else if (curr.infinitive && this.state.showAnswer == true) { //add branch to user input
             card = <AnswerCard answer={curr.answer}/>;
         }
         else {
@@ -54,11 +54,22 @@ var Quiz = React.createClass({
         return (
             <div id="test">
                 <ReactBootstrap.Panel header="practice your verbs, eat your vegetables">
-                {card}
-                    <Ctrls question={this.state.currentQuestion}/>
+                    <ReactBootstrap.Grid>
+                        <ReactBootstrap.Row className="show-grid">
+                            <ReactBootstrap.Col md={7}>
+                            {card}
+                            </ReactBootstrap.Col>
+                            <ReactBootstrap.Col md={5}>
+                            <CustomOptions/>
+                            </ReactBootstrap.Col>
+                        </ReactBootstrap.Row>
+                    </ReactBootstrap.Grid>
+                    <br></br>
+                <Ctrls question={this.state.currentQuestion}/>
                 </ReactBootstrap.Panel>
+
                 <UserAnswer answer={this.state.currentQuestion.answer}/>
-                <CustomOptions/>
+
             </div>
         );
     }
