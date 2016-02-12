@@ -34,6 +34,7 @@ var QuizStore = Fluxxor.createStore({
         var randIdx = Math.floor(Math.random() * this.quiz.length);
         this.seenQuestions.push(randIdx);
         var newQuestion = this.quiz[randIdx];
+        //encapsulate filters into function
         var failIrregular = enableIrregular != true && newQuestion.irregular === true;
         var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
         if (failIrregular || failVosotros) {

@@ -24626,7 +24626,14 @@
 	    SUBMIT_ANSWER: "SUBMIT_ANSWER",
 	    RESET_ANSWER: "RESET_ANSWER",
 	    SET_VOSOTROS: "SET_VOSOTROS",
-	    SET_IRREGULAR: "SET_IRREGULAR"
+	    SET_IRREGULAR: "SET_IRREGULAR",
+	    //INDICATIVE TENSES
+	    SET_INDICATIVE: "SET_INDICATIVE",
+	    SET_PRESENT: "SET_PRESENT",
+	    SET_PRETERITE: "SET_PRETERITE",
+	    SET_IMPERFECT: "SET_IMPERFECT",
+	    SET_CONDITIONAL: "SET_CONDITIONAL",
+	    SET_FUTURE: "SET_FUTURE"
 	}
 
 /***/ },
@@ -41987,10 +41994,10 @@
 	            futureChecked: this.props.checked || false
 	        }
 	    },
-	    render: function() {
+	    render: function () {
 	        return (
 	            React.createElement("div", null, 
-	                 React.createElement("label", null, 
+	                React.createElement("label", null, 
 	                    React.createElement("input", {type: "checkbox", 
 	                        name: "indicative_checkbox", 
 	                        checked: this.state.indicativeChecked, 
@@ -42014,7 +42021,7 @@
 	                        value: "pret_checkbox"}), 
 	                    "preterite"
 	                ), 
-	                  React.createElement("label", null, 
+	                React.createElement("label", null, 
 	                    React.createElement("input", {type: "checkbox", 
 	                        name: "imperfect_checkbox", 
 	                        checked: this.state.imperfectChecked, 
@@ -42022,7 +42029,7 @@
 	                        value: "pret_checkbox"}), 
 	                    "imperfect"
 	                ), 
-	                  React.createElement("label", null, 
+	                React.createElement("label", null, 
 	                    React.createElement("input", {type: "checkbox", 
 	                        name: "conditional_checkbox", 
 	                        checked: this.state.conditionalChecked, 
@@ -42030,7 +42037,7 @@
 	                        value: "pret_checkbox"}), 
 	                    "conditional"
 	                ), 
-	                   React.createElement("label", null, 
+	                React.createElement("label", null, 
 	                    React.createElement("input", {type: "checkbox", 
 	                        name: "future_checkbox", 
 	                        checked: this.state.futureChecked, 
@@ -42048,26 +42055,32 @@
 	        this.handleImperfectClick(e);
 	        this.handleConditionalClick(e);
 	        this.handleFutureClick(e);
+	        this.getFlux().actions.setIndicative(e.target.checked);
 	    },
-	        handlePresentClick: function (e) {
-	            console.log("present click");
+	    handlePresentClick: function (e) {
+	        console.log("present click");
 	        this.setState({presentChecked: e.target.checked});
+	        this.getFlux().actions.setPresent(e.target.checked);
 	    },
-	        handlePretClick: function (e) {
-	            console.log("pret click");
+	    handlePretClick: function (e) {
+	        console.log("pret click");
 	        this.setState({pretChecked: e.target.checked});
+	        this.getFlux().actions.setPreterite(e.target.checked);
 	    },
-	     handleImperfectClick: function (e) {
-	         console.log("imperfect click");
+	    handleImperfectClick: function (e) {
+	        console.log("imperfect click");
 	        this.setState({imperfectChecked: e.target.checked});
+	        this.getFlux().actions.setImperfect(e.target.checked);
 	    },
 	    handleConditionalClick: function (e) {
 	        console.log("conditional click");
 	        this.setState({conditionalChecked: e.target.checked});
+	        this.getFlux().actions.setConditional(e.target.checked);
 	    },
-	    handleFutureClick: function(e) {
+	    handleFutureClick: function (e) {
 	        console.log("future click");
 	        this.setState({futureChecked: e.target.checked});
+	        this.getFlux().actions.setFuture(e.target.checked);
 	    }
 	});
 	
@@ -42113,6 +42126,7 @@
 	        var randIdx = Math.floor(Math.random() * this.quiz.length);
 	        this.seenQuestions.push(randIdx);
 	        var newQuestion = this.quiz[randIdx];
+	        //encapsulate filters into function
 	        var failIrregular = enableIrregular != true && newQuestion.irregular === true;
 	        var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
 	        if (failIrregular || failVosotros) {
@@ -43755,9 +43769,23 @@
 	    initialize: function (options) {
 	        this.useVosotros = false;
 	        this.enableIrregular = false;
+	        this.allowIndicative = false;
+	        this.allowPresent = false;
+	        this.allowPreterite = false;
+	        this.allowImperfect = false;
+	        this.allowConditional = false;
+	        this.allowFuture = false;
+	
 	        this.bindActions(
+	            //general filters
 	            Constants.SET_VOSOTROS, this.setVosotros,
-	            Constants.SET_IRREGULAR, this.setIrregular
+	            Constants.SET_IRREGULAR, this.setIrregular,
+	            Constants.SET_INDICATIVE, this.setIndicative,
+	            Constants.SET_PRESENT, this.setPresent,
+	            Constants.SET_PRETERITE, this.setPreterite,
+	            Constants.SET_IMPERFECT, this.setImperfect,
+	            Constants.SET_CONDITIONAL, this.setConditional,
+	            Constants.SET_FUTURE, this.setFuture
 	        );
 	    },
 	    getState: function () {
@@ -43765,6 +43793,7 @@
 	            useVosotros: this.useVosotros
 	        };
 	    },
+	    //general filters
 	    setVosotros: function (payload) {
 	        var useVosotros = payload.useVosotros;
 	        this.useVosotros = useVosotros;
@@ -43773,6 +43802,36 @@
 	    setIrregular: function (payload) {
 	        var enableIrregular = payload.enableIrregular;
 	        this.enableIrregular = enableIrregular;
+	        this.emit("change");
+	    },
+	    setIndicative: function (payload) {
+	        var allowIndicative = payload.allowIndicative;
+	        this.allowIndicative = allowIndicative;
+	        this.emit("change");
+	    },
+	    setPresent: function (payload) {
+	        var allowPresent = payload.allowPresent;
+	        this.allowPresent = allowPresent;
+	        this.emit("change");
+	    },
+	    setPreterite: function (payload) {
+	        var allowPreterite = payload.allowPreterite;
+	        this.allowPreterite = allowPreterite;
+	        this.emit("change");
+	    },
+	    setImperfect: function (payload) {
+	        var allowImperfect = payload.allowImperfect;
+	        this.allowImperfect = allowImperfect;
+	        this.emit("change");
+	    },
+	    setConditional: function (payload) {
+	        var allowConditional = payload.allowConditional;
+	        this.allowConditional = allowConditional;
+	        this.emit("change");
+	    },
+	    setFuture: function(payload) {
+	        var allowFuture = payload.allowFuture;
+	        this.allowFuture = allowFuture;
 	        this.emit("change");
 	    }
 	});
@@ -43824,11 +43883,30 @@
 	        this.dispatch(Constants.RESET_ANSWER);
 	    },
 	    setVosotros: function(useVosotros) {
-	        this.dispatch(Constants.SET_VOSOTROS, {useVosotros: useVosotros})
+	        this.dispatch(Constants.SET_VOSOTROS, {useVosotros: useVosotros});
 	    },
 	    setIrregular: function(enableIrregular) {
-	        this.dispatch(Constants.SET_IRREGULAR, {enableIrregular: enableIrregular})
+	        this.dispatch(Constants.SET_IRREGULAR, {enableIrregular: enableIrregular});
+	    },
+	    setIndicative: function(allowIndicative) {
+	        this.dispatch(Constants.SET_INDICATIVE, {allowIndicative: allowIndicative});
+	    },
+	    setPresent: function(allowPresent) {
+	        this.dispatch(Constants.SET_PRESENT, {allowPresent: allowPresent});
+	    },
+	    setPreterite: function(allowPreterite) {
+	        this.dispatch(Constants.SET_PRETERITE, {allowPreterite: allowPreterite});
+	    },
+	    setImperfect: function(allowImperfect) {
+	        this.dispatch(Constants.SET_IMPERFECT, {allowImperfect: allowImperfect});
+	    },
+	    setConditional: function(allowConditional) {
+	        this.dispatch(Constants.SET_CONDITIONAL, {allowConditional: allowConditional});
+	    },
+	    setFuture: function(allowFuture) {
+	        this.dispatch(Constants.SET_FUTURE, {allowFuture: allowFuture});
 	    }
+	
 	};
 
 

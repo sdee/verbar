@@ -39,9 +39,28 @@ module.exports = {
         this.dispatch(Constants.RESET_ANSWER);
     },
     setVosotros: function(useVosotros) {
-        this.dispatch(Constants.SET_VOSOTROS, {useVosotros: useVosotros})
+        this.dispatch(Constants.SET_VOSOTROS, {useVosotros: useVosotros});
     },
     setIrregular: function(enableIrregular) {
-        this.dispatch(Constants.SET_IRREGULAR, {enableIrregular: enableIrregular})
+        this.dispatch(Constants.SET_IRREGULAR, {enableIrregular: enableIrregular});
+    },
+    setIndicative: function(allowIndicative) {
+        this.dispatch(Constants.SET_INDICATIVE, {allowIndicative: allowIndicative});
+    },
+    setPresent: function(allowPresent) {
+        this.dispatch(Constants.SET_PRESENT, {allowPresent: allowPresent});
+    },
+    setPreterite: function(allowPreterite) {
+        this.dispatch(Constants.SET_PRETERITE, {allowPreterite: allowPreterite});
+    },
+    setImperfect: function(allowImperfect) {
+        this.dispatch(Constants.SET_IMPERFECT, {allowImperfect: allowImperfect});
+    },
+    setConditional: function(allowConditional) {
+        this.dispatch(Constants.SET_CONDITIONAL, {allowConditional: allowConditional});
+    },
+    setFuture: function(allowFuture) {
+        this.dispatch(Constants.SET_FUTURE, {allowFuture: allowFuture});
     }
+
 };

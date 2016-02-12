@@ -15,10 +15,10 @@ var TensesCheckgroup = React.createClass({
             futureChecked: this.props.checked || false
         }
     },
-    render: function() {
+    render: function () {
         return (
             <div>
-                 <label>
+                <label>
                     <input type="checkbox"
                         name="indicative_checkbox"
                         checked={this.state.indicativeChecked}
@@ -42,7 +42,7 @@ var TensesCheckgroup = React.createClass({
                         value="pret_checkbox" />
                     preterite
                 </label>
-                  <label>
+                <label>
                     <input type="checkbox"
                         name="imperfect_checkbox"
                         checked={this.state.imperfectChecked}
@@ -50,7 +50,7 @@ var TensesCheckgroup = React.createClass({
                         value="pret_checkbox" />
                     imperfect
                 </label>
-                  <label>
+                <label>
                     <input type="checkbox"
                         name="conditional_checkbox"
                         checked={this.state.conditionalChecked}
@@ -58,7 +58,7 @@ var TensesCheckgroup = React.createClass({
                         value="pret_checkbox" />
                     conditional
                 </label>
-                   <label>
+                <label>
                     <input type="checkbox"
                         name="future_checkbox"
                         checked={this.state.futureChecked}
@@ -76,26 +76,32 @@ var TensesCheckgroup = React.createClass({
         this.handleImperfectClick(e);
         this.handleConditionalClick(e);
         this.handleFutureClick(e);
+        this.getFlux().actions.setIndicative(e.target.checked);
     },
-        handlePresentClick: function (e) {
-            console.log("present click");
+    handlePresentClick: function (e) {
+        console.log("present click");
         this.setState({presentChecked: e.target.checked});
+        this.getFlux().actions.setPresent(e.target.checked);
     },
-        handlePretClick: function (e) {
-            console.log("pret click");
+    handlePretClick: function (e) {
+        console.log("pret click");
         this.setState({pretChecked: e.target.checked});
+        this.getFlux().actions.setPreterite(e.target.checked);
     },
-     handleImperfectClick: function (e) {
-         console.log("imperfect click");
+    handleImperfectClick: function (e) {
+        console.log("imperfect click");
         this.setState({imperfectChecked: e.target.checked});
+        this.getFlux().actions.setImperfect(e.target.checked);
     },
     handleConditionalClick: function (e) {
         console.log("conditional click");
         this.setState({conditionalChecked: e.target.checked});
+        this.getFlux().actions.setConditional(e.target.checked);
     },
-    handleFutureClick: function(e) {
+    handleFutureClick: function (e) {
         console.log("future click");
         this.setState({futureChecked: e.target.checked});
+        this.getFlux().actions.setFuture(e.target.checked);
     }
 });
 
