@@ -42156,6 +42156,7 @@
 	        if (failIrregular || failVosotros || failPresent ||failPreterite ||failImperfect || failConditional || failFuture) {//if fails, select a new question
 	            return this.handleNextQuestion(payload);
 	        }
+	        //Insert error state
 	        this.currentQuestion = newQuestion;
 	        this.emit("change");
 	    },
@@ -43872,6 +43873,7 @@
 	
 	var QuizClient = {
 	    load: function (success, failure) {
+	        console.log("AJAXXXX");
 	        jquery.ajax({
 	            url: "quiz.json",
 	            dataType: 'json',

@@ -4,6 +4,7 @@ var resp;
 
 var QuizClient = {
     load: function (success, failure) {
+        console.log("AJAXXXX");
         jquery.ajax({
             url: "quiz.json",
             dataType: 'json',

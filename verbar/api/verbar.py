@@ -5,12 +5,15 @@ from enum import Enum
 
 from collections import namedtuple
 
-verbs = ['hablar', 'ir', 'dormir']
-#maps pronouns and tenses to conventions used for keys in conjugation library
-pronouns = {'yo': '1', 'tu': '2', 'el': '3', 'nosotros': '4', 'ellos': '6' }
-tenses = {'present': 'pre', 'past': 'pas', 'future': 'fut'}
+
 
 class Verbar(object):
+
+    verbs = ['hablar', 'ir', 'dormir', 'llamar', 'venir', 'escribir']
+    #maps pronouns and tenses to conventions used for keys in conjugation library
+    pronouns = {'yo': '1', 'tu': '2', 'el': '3', 'nosotros': '4', 'ellos': '6' }
+    tenses = {'present': 'pre', 'past': 'pas', 'future': 'fut'}
+    mode_map = {'present': 'indicative', 'past': 'indicative', 'future': 'indicative'}
 
     class IrregularityChoice(Enum):
         all = 1 #
@@ -18,20 +21,23 @@ class Verbar(object):
         bycase =3
 
     def choose_verb(self):
-        verb = random.choice(verbs)
+        verb = random.choice(self.verbs)
         if self.is_irregular(verb, None, None):
              return self.choose_verb()
         else:
             return verb
 
     def choose_pronoun(self):
-        return random.choice(pronouns.items())
+        return random.choice(self.pronouns.items())
 
     def choose_tense(self):
-        return random.choice(tenses.items())
+        return random.choice(self.tenses.items())
 
     def generate_key(self, pronoun, tense):
         return pronoun[1]+tense[1]
+
+    def get_mode(self, tense):
+        return self.mode_map[tense[0]]
 
     def is_irregular(self, verb, pronoun, tense, filter=IrregularityChoice.all):
         #simple filter than eliminates verbs that are irregular in any tense
@@ -58,18 +64,25 @@ class Verbar(object):
         pronoun = self.choose_pronoun()
         tense = self.choose_tense()
         verb = self.choose_verb()
-
+        mode = self.get_mode(tense)
         if irregularity_setting is not self.IrregularityChoice.all:
             irregular = self.is_irregular(verb, pronoun, tense, irregularity_setting)
             if irregular: #if irregular, try again
                 return self.generate_conjugation()
         key = self.generate_key(pronoun, tense)
         conjugation = conjugate(verb)
-        question = pronoun[0], verb, tense[0]
+        question = (pronoun[0], verb, tense[0], mode, self.is_irregular_here(verb, pronoun, tense))
         answer = conjugation[key]
-        print "Question:", question
-        print "Answer:", answer
         return (question, answer)
+
+    #generates a unique list of random questions
+    def generate_quiz(self, n=10):
+        uniq = {} #key by question
+        while (len(uniq.values())<n):
+            question, answer = self.generate_conjugation()
+            if not uniq.has_key(question):
+                uniq[(question[0], question[1], question[2])] = (question, answer)
+        return uniq.values()
 
     def next_question(self):
         question, answer = self.generate_conjugation()
@@ -81,7 +94,8 @@ class Verbar(object):
 
 def _main():
     verbar = Verbar()
-    verbar.next_question()
+    # verbar.next_question()
+    verbar.generate_quiz(50)
 
 if __name__ == "__main__":
     _main()
