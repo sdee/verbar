@@ -44,7 +44,7 @@ var QuizStore = Fluxxor.createStore({
         var failIrregular = enableIrregular != true && newQuestion.irregular === true;
         var failVosotros = useVosotros != true && newQuestion.pronoun === "vosotros";
         var failPresent = allowPresent != true && newQuestion.tense === "present";
-        var failPreterite = allowPreterite != true && newQuestion.tense === "preterite";
+        var failPreterite = allowPreterite != true && newQuestion.tense === "past";
         var failImperfect = allowImperfect != true && newQuestion.tense === "imperfect";
         var failConditional = allowConditional != true && newQuestion.tense === "conditional";
         var failFuture = allowFuture != true && newQuestion.tense === "future";
@@ -53,6 +53,8 @@ var QuizStore = Fluxxor.createStore({
             return this.handleNextQuestion(payload);
         }
         //Insert error state
+        console.log("PASSES>>>>>>>>>>");
+        console.log(newQuestion);
         this.currentQuestion = newQuestion;
         this.emit("change");
     },

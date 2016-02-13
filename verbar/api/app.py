@@ -3,7 +3,7 @@ app = Flask(__name__, static_url_path='', static_folder='app')
 import os, json
 from verbar import Verbar
 
-@app.route('/quiz_simple.json')
+@app.route('/quiz.json')
 def hello_world():
     resp = []
     v = Verbar()
