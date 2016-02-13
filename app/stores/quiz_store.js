@@ -4,6 +4,7 @@ var Fluxxor = require("fluxxor"),
 
 var QuizStore = Fluxxor.createStore({
     initialize: function (options) {
+        this.numberFails = 0;
         this.quiz = [];
         this.currentQuestion = {"text": "Get started by clicking 'next'"}; //display
         this.questions = [];
@@ -34,7 +35,6 @@ var QuizStore = Fluxxor.createStore({
         var allowImperfect = payload.allowImperfect;
         var allowConditional = payload.allowConditional;
         var allowFuture = payload.allowFuture;
-
         this.showAnswer = false;
         //select a random question from set of questions
         var randIdx = Math.floor(Math.random() * this.quiz.length);
@@ -50,11 +50,18 @@ var QuizStore = Fluxxor.createStore({
         var failFuture = allowFuture != true && newQuestion.tense === "future";
 
         if (failIrregular || failVosotros || failPresent ||failPreterite ||failImperfect || failConditional || failFuture) {//if fails, select a new question
-            return this.handleNextQuestion(payload);
-        }
-        //Insert error state
-        console.log("PASSES>>>>>>>>>>");
-        console.log(newQuestion);
+            this.numberFails+=1;
+            console.log("number fails");
+            console.log(this.numberFails);
+            if (this.numberFails>30) {
+                console.log("FAIL>>>>>");
+                newQuestion = {"text": "Filters too strict!"};
+            }
+            else {
+                return this.handleNextQuestion(payload);
+            }
+                }
+        this.numberFails =0;
         this.currentQuestion = newQuestion;
         this.emit("change");
     },

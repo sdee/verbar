@@ -8,7 +8,7 @@ var TensesCheckgroup = React.createClass({
     getInitialState: function () {
         return {
             indicativeChecked: this.props.checked || false,
-            presentChecked: this.props.checked || false,
+            presentChecked: this.props.checked || true,
             pretChecked: this.props.checked || false,
             imperfectChecked: this.props.checked || false,
             conditionalChecked: this.props.checked || false,
