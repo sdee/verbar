@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "bundle.js",
+"scripts": {
+  "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
+  "start": "node server.js"
+},
   "dependencies": {
     "fluxxor": "^1.7.3",
     "jquery": "^2.2.0",
