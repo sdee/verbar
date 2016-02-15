@@ -24362,25 +24362,33 @@
 	                    React.createElement(ReactBootstrap.Grid, null, 
 	                        React.createElement(ReactBootstrap.Row, {className: "show-grid"}, 
 	                            React.createElement(ReactBootstrap.Col, {md: 7}, 
+	                                React.createElement(ReactBootstrap.Row, {className: "show-grid"}, 
 	                            card
-	                            ), 
-	                            React.createElement(ReactBootstrap.Col, {md: 5}, 
-	                            React.createElement(CustomOptions, null)
+	                                ), 
+	                                React.createElement(ReactBootstrap.Row, {className: "card"}, 
+	                                    React.createElement("br", null), 
+	                                    React.createElement(ReactBootstrap.Row, {className: "button"}, 
+	                                        React.createElement(ReactBootstrap.Col, {md: 1}), 
+	                                        React.createElement(ReactBootstrap.Col, {md: 4}, 
+	                                            React.createElement(Ctrls, {question: this.state.currentQuestion})
+	                                        )
+	                                    )
+	                                    )
+	                                ), 
+	                                React.createElement(ReactBootstrap.Col, {md: 5}, 
+	                                    React.createElement(CustomOptions, null)
+	                                )
 	                            )
 	                        )
 	                    ), 
-	                    React.createElement("br", null), 
-	                React.createElement(Ctrls, {question: this.state.currentQuestion})
-	                ), 
+	                    React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer})
 	
-	                React.createElement(UserAnswer, {answer: this.state.currentQuestion.answer})
+	                )
+	                );
+	                }
+	                });
 	
-	            )
-	        );
-	    }
-	});
-	
-	module.exports = Quiz;
+	                module.exports = Quiz;
 
 
 /***/ },
@@ -41983,7 +41991,7 @@
 	              checked: this.state.checked, 
 	              onClick: this.handleClick, 
 	              value: "repeat"}), 
-	            "allow repeats (coming soon)"
+	            "allow repeats"
 	      )
 	    );
 	  },
@@ -42053,7 +42061,6 @@
 	    },
 	    render: function () {
 	        return (
-	
 	            React.createElement("div", null, 
 	                React.createElement(ReactBootstrap.Row, null, 
 	                    React.createElement(ReactBootstrap.Col, {md: 4}, 
@@ -42067,16 +42074,20 @@
 	                        )
 	                    )
 	                ), 
+	                 React.createElement(ReactBootstrap.Panel, {header: "advanced"}, 
 	                React.createElement(ReactBootstrap.Row, null, 
 	                    React.createElement(ReactBootstrap.Col, {md: 4}, 
-	                        React.createElement("label", null, 
-	                            React.createElement("input", {type: "checkbox", 
+	                        React.createElement("div", {class: "checkbox"}, 
+	
+	                        React.createElement("input", {type: "checkbox", 
 	                                name: "present_checkbox", 
 	                                checked: this.state.presentChecked, 
 	                                onChange: this.handlePresentClick, 
 	                                value: "present_checkbox"}), 
+	                        React.createElement("label", null, 
 	                            "present"
 	                        )
+	                            )
 	                    )
 	                ), 
 	                React.createElement(ReactBootstrap.Row, null, 
@@ -42127,6 +42138,7 @@
 	                        )
 	                    )
 	                )
+	                     )
 	            )
 	
 	        );
@@ -42181,7 +42193,7 @@
 	    initialize: function (options) {
 	        this.numberFails = 0;
 	        this.quiz = [];
-	        this.currentQuestion = {"text": "Get started by clicking 'next'"}; //display
+	        this.currentQuestion = {"text": "Get started by clicking 'next'!"}; //display
 	        this.questions = [];
 	        this.loading = false;
 	        this.showAnswer = false;

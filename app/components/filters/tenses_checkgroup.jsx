@@ -17,7 +17,6 @@ var TensesCheckgroup = React.createClass({
     },
     render: function () {
         return (
-
             <div>
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col md={4}>
@@ -31,16 +30,20 @@ var TensesCheckgroup = React.createClass({
                         </label>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
+                 <ReactBootstrap.Panel header="advanced">
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col md={4}>
-                        <label>
-                            <input type="checkbox"
+                        <div class="checkbox">
+
+                        <input type="checkbox"
                                 name="present_checkbox"
                                 checked={this.state.presentChecked}
                                 onChange={this.handlePresentClick}
                                 value="present_checkbox" />
+                        <label>
                             present
                         </label>
+                            </div>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row>
@@ -91,6 +94,7 @@ var TensesCheckgroup = React.createClass({
                         </label>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
+                     </ReactBootstrap.Panel>
             </div>
 
         );

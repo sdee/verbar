@@ -6,7 +6,7 @@ var QuizStore = Fluxxor.createStore({
     initialize: function (options) {
         this.numberFails = 0;
         this.quiz = [];
-        this.currentQuestion = {"text": "Get started by clicking 'next'"}; //display
+        this.currentQuestion = {"text": "Get started by clicking 'next'!"}; //display
         this.questions = [];
         this.loading = false;
         this.showAnswer = false;

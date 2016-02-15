@@ -57,22 +57,30 @@ var Quiz = React.createClass({
                     <ReactBootstrap.Grid>
                         <ReactBootstrap.Row className="show-grid">
                             <ReactBootstrap.Col md={7}>
+                                <ReactBootstrap.Row className="show-grid">
                             {card}
-                            </ReactBootstrap.Col>
-                            <ReactBootstrap.Col md={5}>
-                            <CustomOptions/>
-                            </ReactBootstrap.Col>
-                        </ReactBootstrap.Row>
-                    </ReactBootstrap.Grid>
-                    <br></br>
-                <Ctrls question={this.state.currentQuestion}/>
-                </ReactBootstrap.Panel>
+                                </ReactBootstrap.Row>
+                                <ReactBootstrap.Row className="card">
+                                    <br></br>
+                                    <ReactBootstrap.Row className="button">
+                                        <ReactBootstrap.Col md={1}></ReactBootstrap.Col>
+                                        <ReactBootstrap.Col md={4}>
+                                            <Ctrls question={this.state.currentQuestion}/>
+                                        </ReactBootstrap.Col>
+                                    </ReactBootstrap.Row>
+                                    </ReactBootstrap.Row>
+                                </ReactBootstrap.Col>
+                                <ReactBootstrap.Col md={5}>
+                                    <CustomOptions/>
+                                </ReactBootstrap.Col>
+                            </ReactBootstrap.Row>
+                        </ReactBootstrap.Grid>
+                    </ReactBootstrap.Panel>
+                    <UserAnswer answer={this.state.currentQuestion.answer}/>
 
-                <UserAnswer answer={this.state.currentQuestion.answer}/>
+                </div>
+                );
+                }
+                });
 
-            </div>
-        );
-    }
-});
-
-module.exports = Quiz;
+                module.exports = Quiz;
