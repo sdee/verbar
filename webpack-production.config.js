@@ -7,7 +7,7 @@ module.exports = {
     "./app/app.jsx",
   ],
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(process.env.PWD, 'public'),
     filename: 'bundle.js',
     publicPath: '/public/'
   },
