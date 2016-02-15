@@ -1,6 +1,5 @@
 var React = require("react"),
     Fluxxor = require("fluxxor"),
-<<<<<<< HEAD
     LinkedStateMixin = require('react-addons-linked-state-mixin'),
     FluxMixin = Fluxxor.FluxMixin(React),
     Constants = require("../constants"),
@@ -85,18 +84,4 @@ var Quiz = React.createClass({
                 });
 
                 module.exports = Quiz;
-=======
-    FluxMixin = Fluxxor.FluxMixin(React),
-    ReactBootstrap = require("react-bootstrap"),
-    Tabs = require("./tabs.jsx");
-var Guide = React.createClass({
-render: function () {
 
-        return (
-            <Tabs/>
-        );
-    }
-});
-
-module.exports = Guide;
->>>>>>> 2e6703ac3296c7f559a087c01f6a7c48a07f12ab
