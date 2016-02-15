@@ -12,6 +12,9 @@
     "react-dom": "^0.14.7",
     "webpack": "^1.12.13"
   },
+  "engines": {
+    "node": "0.12.7"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
