@@ -17,56 +17,82 @@ var TensesCheckgroup = React.createClass({
     },
     render: function () {
         return (
+
             <div>
-                <label>
-                    <input type="checkbox"
-                        name="indicative_checkbox"
-                        checked={this.state.indicativeChecked}
-                        onClick={this.handleIndicativeClick}
-                        value="indicative_checkbox" />
-                    indicative
-                </label>
-                <label>
-                    <input type="checkbox"
-                        name="present_checkbox"
-                        checked={this.state.presentChecked}
-                        onClick={this.handlePresentClick}
-                        value="present_checkbox" />
-                    present
-                </label>
-                <label>
-                    <input type="checkbox"
-                        name="pret_checkbox"
-                        checked={this.state.pretChecked}
-                        onClick={this.handlePretClick}
-                        value="pret_checkbox" />
-                    preterite
-                </label>
-                <label>
-                    <input type="checkbox"
-                        name="imperfect_checkbox"
-                        checked={this.state.imperfectChecked}
-                        onClick={this.handleImperfectClick}
-                        value="pret_checkbox" />
-                    imperfect
-                </label>
-                <label>
-                    <input type="checkbox"
-                        name="conditional_checkbox"
-                        checked={this.state.conditionalChecked}
-                        onClick={this.handleConditionalClick}
-                        value="pret_checkbox" />
-                    conditional
-                </label>
-                <label>
-                    <input type="checkbox"
-                        name="future_checkbox"
-                        checked={this.state.futureChecked}
-                        onClick={this.handleFutureClick}
-                        value="pret_checkbox" />
-                    future
-                </label>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="indicative_checkbox"
+                                checked={this.state.indicativeChecked}
+                                onChange={this.handleIndicativeClick}
+                                value="indicative_checkbox" />
+                            indicative
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="present_checkbox"
+                                checked={this.state.presentChecked}
+                                onChange={this.handlePresentClick}
+                                value="present_checkbox" />
+                            present
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="pret_checkbox"
+                                checked={this.state.pretChecked}
+                                onChange={this.handlePretClick}
+                                value="pret_checkbox" />
+                            preterite
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="imperfect_checkbox"
+                                checked={this.state.imperfectChecked}
+                                onChange={this.handleImperfectClick}
+                                value="pret_checkbox" />
+                            imperfect
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="conditional_checkbox"
+                                checked={this.state.conditionalChecked}
+                                onChange={this.handleConditionalClick}
+                                value="pret_checkbox" />
+                            conditional
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
+                <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={4}>
+                        <label>
+                            <input type="checkbox"
+                                name="future_checkbox"
+                                checked={this.state.futureChecked}
+                                onChange={this.handleFutureClick}
+                                value="pret_checkbox" />
+                            future
+                        </label>
+                    </ReactBootstrap.Col>
+                </ReactBootstrap.Row>
             </div>
+
         );
     },
     handleIndicativeClick: function (e) {
