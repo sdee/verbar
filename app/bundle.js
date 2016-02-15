@@ -41978,12 +41978,12 @@
 	        React.createElement("label", null, 
 	            React.createElement("input", {type: "checkbox", 
 	              name: "repeat_checkbox", 
-	                class: "disabled", 
+	                className: "disabled", 
 	                alt: "coming soon!", 
 	              checked: this.state.checked, 
 	              onClick: this.handleClick, 
 	              value: "repeat"}), 
-	            "allow repeats"
+	            "allow repeats (coming soon)"
 	      )
 	    );
 	  },

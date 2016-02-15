@@ -15,7 +15,7 @@ var RepeatCheckbox = React.createClass({
         <label>
             <input type="checkbox"
               name="repeat_checkbox"
-                class="disabled"
+                className="disabled"
                 alt="coming soon!"
               checked={this.state.checked}
               onClick={this.handleClick}
