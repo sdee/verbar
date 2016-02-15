@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "actions.js",
+  "scripts": {
+  "postinstall": "webpack --config ./webpack-prod.config.js --progress --colors",
+  "start": "node server.js"
+},
   "dependencies": {
     "express": "^4.13.4",
     "fluxxor": "^1.7.3",
