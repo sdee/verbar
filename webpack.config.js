@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 var config = {
     cache: true,
-    entry: "./app.jsx",
+    entry: "./react-app/app.jsx",
     output: {
         filename: "bundle.js"
     },
