@@ -60,14 +60,9 @@ var Quiz = React.createClass({
                                 <ReactBootstrap.Row className="show-grid">
                             {card}
                                 </ReactBootstrap.Row>
-                                <ReactBootstrap.Row className="card">
+                                <ReactBootstrap.Row className="card" className="ctrl">
                                     <br></br>
-                                    <ReactBootstrap.Row className="button">
-                                        <ReactBootstrap.Col md={1}></ReactBootstrap.Col>
-                                        <ReactBootstrap.Col md={4}>
                                             <Ctrls question={this.state.currentQuestion}/>
-                                        </ReactBootstrap.Col>
-                                    </ReactBootstrap.Row>
                                     </ReactBootstrap.Row>
                                 </ReactBootstrap.Col>
                                 <ReactBootstrap.Col md={5}>
@@ -77,7 +72,6 @@ var Quiz = React.createClass({
                         </ReactBootstrap.Grid>
                     </ReactBootstrap.Panel>
                     <UserAnswer answer={this.state.currentQuestion.answer}/>
-
                 </div>
                 );
                 }

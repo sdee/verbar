@@ -65,20 +65,8 @@ var TensesCheckgroup = React.createClass({
                                 name="imperfect_checkbox"
                                 checked={this.state.imperfectChecked}
                                 onChange={this.handleImperfectClick}
-                                value="pret_checkbox" />
+                                value="imperfect_checkbox" />
                             imperfect
-                        </label>
-                    </ReactBootstrap.Col>
-                </ReactBootstrap.Row>
-                <ReactBootstrap.Row>
-                    <ReactBootstrap.Col md={4}>
-                        <label>
-                            <input type="checkbox"
-                                name="conditional_checkbox"
-                                checked={this.state.conditionalChecked}
-                                onChange={this.handleConditionalClick}
-                                value="pret_checkbox" />
-                            conditional
                         </label>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
@@ -89,7 +77,7 @@ var TensesCheckgroup = React.createClass({
                                 name="future_checkbox"
                                 checked={this.state.futureChecked}
                                 onChange={this.handleFutureClick}
-                                value="pret_checkbox" />
+                                value="future_checkbox" />
                             future
                         </label>
                     </ReactBootstrap.Col>

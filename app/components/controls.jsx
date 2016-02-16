@@ -24,10 +24,10 @@ var Controls = React.createClass({
     render: function () {
         return (
             <div>
-                <ReactBootstrap.ButtonToolbar>
+
                     <ReactBootstrap.Button bsStyle="success" onClick={this.onNextQuestion}>Next Question</ReactBootstrap.Button>
                     <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>Flip Card</ReactBootstrap.Button>
-                </ReactBootstrap.ButtonToolbar>
+
             </div>
         );
     },

@@ -51,7 +51,7 @@ var QuizStore = Fluxxor.createStore({
 
         if (failIrregular || failVosotros || failPresent ||failPreterite ||failImperfect || failConditional || failFuture) {//if fails, select a new question
             this.numberFails+=1;
-            if (this.numberFails>30) {
+            if (this.numberFails>30) {//too hard to find new question
                 newQuestion = {"text": "Filters too strict!"};
             }
             else {
@@ -60,6 +60,8 @@ var QuizStore = Fluxxor.createStore({
                 }
         this.numberFails =0;
         this.currentQuestion = newQuestion;
+        console.log("NEW QUESTION");
+        console.log(newQuestion);
         this.emit("change");
     },
     onLoadQuiz: function () {
