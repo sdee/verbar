@@ -12,7 +12,8 @@ var MsgCard = require("./messageCard.jsx"),
     FeedbackCard = require("./feedbackCard.jsx"),
     Ctrls = require("./controls.jsx"),
     CustomOptions = require("./customOptions.jsx"),
-    UserAnswer = require("./userAnswer.jsx");
+    UserAnswer = require("./userAnswer.jsx"),
+    Readme = require("./readme.jsx");
 
 var Quiz = React.createClass({
     mixins: [FluxMixin, StoreWatchMixin("QuizStore", "UserInputStore", "FilterStore"), LinkedStateMixin],
@@ -72,7 +73,8 @@ var Quiz = React.createClass({
                         </ReactBootstrap.Grid>
                     </ReactBootstrap.Panel>
                     <UserAnswer answer={this.state.currentQuestion.answer}/>
-                </div>
+             <Readme/>
+            </div>
                 );
                 }
                 });
