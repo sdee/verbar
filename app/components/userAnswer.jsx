@@ -50,7 +50,7 @@ var UserAnswer = React.createClass({
         return (
             <div>
                 <b><font color={this.state.correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
-                <form className="userInput form-inline" onSubmit={this.handleSubmit}>
+                <form className="userInput form-inline ctrl" onSubmit={this.handleSubmit}>
                     <input
                         autoFocus
                         type="text"
@@ -58,7 +58,6 @@ var UserAnswer = React.createClass({
                         value={this.state.userAnswer}
                         onChange={this.handleUserAnswer}
                     />
-
                     <ReactBootstrap.ButtonInput type="submit" value="post" bsStyle="success" bsSize="small" disabled={this.state.disabled} />
                     <br></br>
                     <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  /> Ignore Accents

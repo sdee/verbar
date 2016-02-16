@@ -1,10 +1,11 @@
-.ctrl {
+.ctrl{
     float: none;
     margin: 3px auto;
     padding: 3px;
+    text-align:center;
+}​
 
-    text-align: center;
-}
 .btn {
-    margin: 3px;
+    padding: 3px;
+
  }
