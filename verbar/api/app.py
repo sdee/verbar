@@ -8,7 +8,7 @@ from verbar import Verbar
 def hello_world():
     resp = []
     v = Verbar()
-    quiz = v.generate_quiz(50)
+    quiz = v.generate_quiz(100)
     #now flatten into list of dictionaries with api fields
     for qa in quiz:
         question, answer = qa
