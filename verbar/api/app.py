@@ -3,6 +3,7 @@ app = Flask(__name__, static_url_path='', static_folder='app')
 import os, json
 from verbar import Verbar
 
+#simple
 @app.route('/quiz.json')
 def hello_world():
     resp = []
@@ -11,7 +12,7 @@ def hello_world():
     #now flatten into list of dictionaries with api fields
     for qa in quiz:
         question, answer = qa
-        #more elegant way to make dict?
+        #TODO: more elegant way to make dict?
         row = {
             'pronoun': question[0],
             'infinitive': question[1],
@@ -22,7 +23,6 @@ def hello_world():
         }
         resp.append(row)
         print json.dumps(resp)
-
     return json.dumps(resp)
 
 if __name__ == '__main__':

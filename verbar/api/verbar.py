@@ -5,8 +5,6 @@ from enum import Enum
 
 from collections import namedtuple
 
-
-
 class Verbar(object):
 
     verbs = ['hablar', 'ir', 'dormir', 'llamar', 'venir', 'escribir']
@@ -40,17 +38,20 @@ class Verbar(object):
         return self.mode_map[tense[0]]
 
     def is_irregular(self, verb, pronoun, tense, filter=IrregularityChoice.all):
-        #simple filter than eliminates verbs that are irregular in any tense
+
         if filter == self.IrregularityChoice.none:
             return self.is_irregular_ever(verb)
-        elif filter== self.IrregularityChoice.bycase:
+
+        elif filter == self.IrregularityChoice.bycase:
             return self.is_irregular_here(verb, pronoun, tense)
         else:
             return False
 
+    #simple filter than eliminates verbs that are irregular in any tense
     def is_irregular_ever(self, verb):
         return verb in irregular_verbs.keys()
 
+    #filters irregularity of verb for a specific case-combination of pronoun and tense
     def is_irregular_here(self, verb, pronoun, tense):
         key = self.generate_key(pronoun, tense)
         if irregular_verbs.has_key(verb) and irregular_verbs[verb].has_key(key):
@@ -75,7 +76,7 @@ class Verbar(object):
         answer = conjugation[key]
         return (question, answer)
 
-    #generates a unique list of random questions
+    #generates a unique list of randomly generated questions
     def generate_quiz(self, n=10):
         uniq = {} #key by question
         while (len(uniq.values())<n):
@@ -94,7 +95,6 @@ class Verbar(object):
 
 def _main():
     verbar = Verbar()
-    # verbar.next_question()
     verbar.generate_quiz(50)
 
 if __name__ == "__main__":
