@@ -17,7 +17,7 @@ var CustomOptions = React.createClass({
     },
     render: function () {
         return (
-                <ReactBootstrap.Panel header="Customize">
+                <ReactBootstrap.Panel header="Customize your lesson">
                         <ReactBootstrap.Row>
                             <ReactBootstrap.Col md={4}>
                                 <IrregularCheckbox/>
