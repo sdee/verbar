@@ -48,7 +48,7 @@ var UserAnswer = React.createClass({
     },
     render: function () {
         return (
-            <ReactBootstrap.Panel header="Quiz mode">
+            <ReactBootstrap.Panel header="Quiz mode (experimental)">
                 Final Answer
                 <b><font color={this.state.correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
                 <br></br>

@@ -30,7 +30,7 @@ var TensesCheckgroup = React.createClass({
                         </label>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                 <ReactBootstrap.Panel header="advanced">
+                 <ReactBootstrap.Panel header="Choose tenses (advanced)">
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col md={4}>
                         <div class="checkbox">

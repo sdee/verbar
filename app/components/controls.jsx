@@ -24,9 +24,8 @@ var Controls = React.createClass({
     render: function () {
         return (
             <div>
-
                     <ReactBootstrap.Button bsStyle="success" onClick={this.onNextQuestion}>Next Question</ReactBootstrap.Button>
-                    <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>Flip Card</ReactBootstrap.Button>
+                    <ReactBootstrap.Button bsStyle="primary" onClick={this.onShowAnswer}>See Answer</ReactBootstrap.Button>
 
             </div>
         );
