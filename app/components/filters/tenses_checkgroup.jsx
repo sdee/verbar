@@ -33,17 +33,14 @@ var TensesCheckgroup = React.createClass({
                  <ReactBootstrap.Panel header="Choose tenses (advanced)">
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col md={4}>
-                        <div className="checkbox">
-
+                        <label>
                         <input type="checkbox"
                                 name="present_checkbox"
                                 checked={this.state.presentChecked}
                                 onChange={this.handlePresentClick}
                                 value="present_checkbox" />
-                        <label>
                             present
                         </label>
-                            </div>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
                 <ReactBootstrap.Row>
