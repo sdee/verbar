@@ -12,8 +12,8 @@ class Verbar(object):
     verbs = ['hablar', 'ir', 'dormir', 'llamar', 'venir', 'escribir']
     #maps pronouns and tenses to conventions used for keys in conjugation library
     pronouns = {'yo': '1', 'tu': '2', 'el': '3', 'nosotros': '4', 'ellos': '6' }
-    tenses = {'present': 'pre', 'past': 'pas', 'future': 'fut'}
-    mode_map = {'present': 'indicative', 'past': 'indicative', 'future': 'indicative'}
+    tenses = {'present': 'pre', 'past': 'pas', 'future': 'fut', 'imperfect': 'cop'}
+    mode_map = {'present': 'indicative', 'past': 'indicative', 'future': 'indicative', 'imperfect': 'indicative'}
 
     class IrregularityChoice(Enum):
         all = 1 #
