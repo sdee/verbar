@@ -63,21 +63,25 @@ var Quiz = React.createClass({
                                 </ReactBootstrap.Row>
                                 <ReactBootstrap.Row className="card" className="ctrl">
                                     <br></br>
-                                            <Ctrls question={this.state.currentQuestion}/>
-                                    </ReactBootstrap.Row>
-                                </ReactBootstrap.Col>
-                                <ReactBootstrap.Col md={5}>
-                                    <CustomOptions/>
-                                </ReactBootstrap.Col>
-                            </ReactBootstrap.Row>
-                        </ReactBootstrap.Grid>
-                    </ReactBootstrap.Panel>
-                    <UserAnswer answer={this.state.currentQuestion.answer}/>
-             <Readme/>
-            </div>
-                );
-                }
-                });
+                                    <Ctrls question={this.state.currentQuestion}/>
+                                </ReactBootstrap.Row>
+                                <ReactBootstrap.Row className="card" className="ctrl">
+                                    <br></br>
+                                    <UserAnswer answer={this.state.currentQuestion.answer}/>
+                                </ReactBootstrap.Row>
+                            </ReactBootstrap.Col>
+                            <ReactBootstrap.Col md={5}>
+                                <CustomOptions/>
+                            </ReactBootstrap.Col>
+                        </ReactBootstrap.Row>
+                    </ReactBootstrap.Grid>
+                </ReactBootstrap.Panel>
 
-                module.exports = Quiz;
+                <Readme/>
+            </div>
+        );
+    }
+});
+
+module.exports = Quiz;
 

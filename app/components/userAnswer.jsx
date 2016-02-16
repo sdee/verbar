@@ -48,22 +48,22 @@ var UserAnswer = React.createClass({
     },
     render: function () {
         return (
-            <ReactBootstrap.Panel header="Quiz mode (experimental)">
-                Final Answer
+            <div>
                 <b><font color={this.state.correct ? "green" : "red"}>{this.state.finalAnswer}</font></b>
-                <br></br>
-                <form className="userInput" onSubmit={this.handleSubmit}>
+                <form className="userInput form-inline" onSubmit={this.handleSubmit}>
                     <input
+                        autoFocus
                         type="text"
                         placeholder="Your Answer"
                         value={this.state.userAnswer}
                         onChange={this.handleUserAnswer}
                     />
+
                     <ReactBootstrap.ButtonInput type="submit" value="post" bsStyle="success" bsSize="small" disabled={this.state.disabled} />
-  <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  />
-                Ignore Accents
+                    <br></br>
+                    <input type="checkbox" checkedLink={this.linkState('ignoreAccents')}  /> Ignore Accents
                 </form>
-            </ReactBootstrap.Panel>
+            </div>
         );
     }
 });
