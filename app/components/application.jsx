@@ -76,7 +76,6 @@ var Quiz = React.createClass({
                         </ReactBootstrap.Row>
                     </ReactBootstrap.Grid>
                 </ReactBootstrap.Panel>
-
                 <Readme/>
             </div>
         );

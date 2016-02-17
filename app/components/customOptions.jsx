@@ -1,11 +1,6 @@
 var React = require("react"),
     ReactBootstrap = require("react-bootstrap");
-var LinkedStateMixin = require('react-addons-linked-state-mixin'),
-    VosotrosCheckbox = require("./filters/vosotros_checkbox.jsx"),
-    RepeatCheckbox = require("./filters/repeat_checkbox.jsx"),
-    IrregularCheckbox = require("./filters/irregular_checkbox.jsx"),
-    TensesCheckgroup = require("./filters/tenses_checkgroup.jsx");
-var UserAnswer = require("./userAnswer.jsx");
+var LinkedStateMixin = require('react-addons-linked-state-mixin');
 
 var CustomOptions = React.createClass({
     mixins: [FluxMixin, LinkedStateMixin],
@@ -34,5 +29,4 @@ var CustomOptions = React.createClass({
         );
     }
 });
-
 module.exports = CustomOptions;

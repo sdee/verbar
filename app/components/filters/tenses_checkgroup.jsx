@@ -81,7 +81,6 @@ var TensesCheckgroup = React.createClass({
                 </ReactBootstrap.Row>
                      </ReactBootstrap.Panel>
             </div>
-
         );
     },
     handleIndicativeClick: function (e) {
