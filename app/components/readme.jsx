@@ -20,7 +20,8 @@ var Readme = React.createClass({
                     </ReactBootstrap.Panel>
                     <ReactBootstrap.Panel header="Story" eventKey="3">
                          <p>This tool is built around my personal learning style so it might not be ideal for everyone. I quit my software job and started to travel the world to learn about food. I started in Peru and quickly realized how important expanding my language skill was to understanding the rich stories people were telling me.</p>
-                        <p>In the second part of my trip, I found myself on the other side of the world in Thailand where I couldn't find any Spanish classes to continue my studies. I often tackle challenges like learning a language by trying to identify the hardest part and addressing that head-on. I realized that the number of tenses in Spanish can be intimidating, made more complex by the unfamiliar concepts like the subjunctive tense.</p>
+                        <p>In the second part of my trip, I found myself on the other side of the world in Thailand where I couldn't find any Spanish classes to continue my studies.</p>
+                        <p>I often tackle challenges like learning a language by trying to identify the hardest part and addressing that head-on. I realized that the number of tenses in Spanish can be intimidating, made more complex by the unfamiliar concepts like the subjunctive tense so I figured this was a good place to start.</p>
                         <p>I set out to write this app and wrote the first version in two weeks while bouncing around various co-working spaces in Chiang Mai.</p>
                     </ReactBootstrap.Panel>
                     <ReactBootstrap.Panel header="Code" eventKey="4">
