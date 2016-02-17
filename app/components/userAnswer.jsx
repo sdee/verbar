@@ -1,7 +1,5 @@
-React = require("react"),
+var React = require("react"),
     Fluxxor = require("fluxxor"),
-    LinkedStateMixin = require('react-addons-linked-state-mixin'),
-    ReactBootstrap = require("react-bootstrap"),
     FluxMixin = Fluxxor.FluxMixin(React),
     Constants = require("../constants"),
     StoreWatchMixin = Fluxxor.StoreWatchMixin,
