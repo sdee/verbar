@@ -45,7 +45,6 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	__webpack_require__(1);
 	module.exports = __webpack_require__(526);
 
 
@@ -24263,7 +24262,6 @@
 	                        )
 	                    )
 	                ), 
-	
 	                React.createElement(Readme, null)
 	            )
 	        );
@@ -41609,19 +41607,19 @@
 	React = __webpack_require__(2);
 	
 	var MsgCard = React.createClass({displayName: "MsgCard",
-	   propTypes: {
-	      msg: React.PropTypes.string.isRequired
-	   },
-	       getInitialState: function() {
-	           return { };
-	       },
-	       render: function() {
-	       return (React.createElement("div", null, 
-	           React.createElement("section", {className: "front"}, 
+	    propTypes: {
+	        msg: React.PropTypes.string.isRequired
+	    },
+	    getInitialState: function () {
+	        return {};
+	    },
+	    render: function () {
+	        return (React.createElement("div", null, 
+	            React.createElement("section", {className: "front"}, 
 	       this.props.msg
-	               )
-	       ));
-	       }
+	            )
+	        ));
+	    }
 	});
 	
 	module.exports = MsgCard;
@@ -41688,25 +41686,24 @@
 	React = __webpack_require__(2);
 	
 	var FeedbackCard = React.createClass({displayName: "FeedbackCard",
-	   propTypes: {
-	      correct: React.PropTypes.bool.isRequired,
-	       correctAnswer: React.PropTypes.string.isRequired,
-	       submittedAnswer: React.PropTypes.string.isRequired
-	   },
-	       getInitialState: function() {
-	           return { };
-	       },
-	       render: function() {
-	       return (
-	           React.createElement("div", null, 
-	               React.createElement("section", {className: "back"}, 
-	           React.createElement("font", {color: this.props.correct ? "green" : "red"}, this.props.submittedAnswer), 
-	           React.createElement("font", {color: "black"}, this.props.correct==false ? "->"+this.props.correctAnswer: '')
-	
-	                   )
-	           )
-	       )
-	       }
+	    propTypes: {
+	        correct: React.PropTypes.bool.isRequired,
+	        correctAnswer: React.PropTypes.string.isRequired,
+	        submittedAnswer: React.PropTypes.string.isRequired
+	    },
+	    getInitialState: function () {
+	        return {};
+	    },
+	    render: function () {
+	        return (
+	            React.createElement("div", null, 
+	                React.createElement("section", {className: "back"}, 
+	                    React.createElement("font", {color: this.props.correct ? "green" : "red"}, this.props.submittedAnswer), 
+	                    React.createElement("font", {color: "black"}, this.props.correct == false ? "->" + this.props.correctAnswer : '')
+	                )
+	            )
+	        )
+	    }
 	});
 	
 	module.exports = FeedbackCard;
@@ -41741,9 +41738,8 @@
 	    render: function () {
 	        return (
 	            React.createElement("div", null, 
-	                    React.createElement(ReactBootstrap.Button, {bsStyle: "success", onClick: this.onNextQuestion}, "Next Question"), 
-	                    React.createElement(ReactBootstrap.Button, {bsStyle: "primary", onClick: this.onShowAnswer}, "See Answer")
-	
+	                React.createElement(ReactBootstrap.Button, {bsStyle: "success", onClick: this.onNextQuestion}, "Next Question"), 
+	                React.createElement(ReactBootstrap.Button, {bsStyle: "primary", onClick: this.onShowAnswer}, "See Answer")
 	            )
 	        );
 	    },
@@ -41768,10 +41764,8 @@
 /* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
-	React = __webpack_require__(2),
+	var React = __webpack_require__(2),
 	    Fluxxor = __webpack_require__(160),
-	    LinkedStateMixin = __webpack_require__(258),
-	    ReactBootstrap = __webpack_require__(263),
 	    FluxMixin = Fluxxor.FluxMixin(React),
 	    Constants = __webpack_require__(262),
 	    StoreWatchMixin = Fluxxor.StoreWatchMixin,
@@ -41871,12 +41865,10 @@
 	var React = __webpack_require__(2),
 	    ReactBootstrap = __webpack_require__(263);
 	var LinkedStateMixin = __webpack_require__(258),
-	    VosotrosCheckbox = __webpack_require__(515),
-	    RepeatCheckbox = __webpack_require__(516),
-	    IrregularCheckbox = __webpack_require__(517),
+	    IrregularCheckbox = __webpack_require__(515),
+	    VosotrosCheckbox = __webpack_require__(516),
+	    RepeatCheckbox = __webpack_require__(517),
 	    TensesCheckgroup = __webpack_require__(518);
-	var UserAnswer = __webpack_require__(512);
-	
 	var CustomOptions = React.createClass({displayName: "CustomOptions",
 	    mixins: [FluxMixin, LinkedStateMixin],
 	    getInitialState: function () {
@@ -41904,11 +41896,46 @@
 	        );
 	    }
 	});
-	
 	module.exports = CustomOptions;
 
 /***/ },
 /* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	React = __webpack_require__(2),
+	    Fluxxor = __webpack_require__(160),
+	    ReactBootstrap = __webpack_require__(263),
+	    FluxMixin = Fluxxor.FluxMixin(React);
+	
+	var IrregularCheckbox = React.createClass({displayName: "IrregularCheckbox",
+	    mixins: [FluxMixin],
+	  getInitialState: function () {
+	    return {
+	        checked: this.props.checked || false
+	     };
+	  },
+	  render: function () {
+	    return (
+	        React.createElement("label", null, 
+	            React.createElement("input", {type: "checkbox", 
+	              name: "irregular_checkbox", 
+	              checked: this.state.checked, 
+	              onClick: this.handleClick, 
+	              value: "irregular"}), 
+	            "allow irregular"
+	      )
+	    );
+	  },
+	  handleClick: function(e) {
+	      this.setState({checked: e.target.checked});
+	      this.getFlux().actions.setIrregular(e.target.checked);//tell store
+	  }
+	});
+	
+	module.exports = IrregularCheckbox;
+
+/***/ },
+/* 516 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2),
@@ -41944,7 +41971,7 @@
 	module.exports = VosotrosCheckbox;
 
 /***/ },
-/* 516 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	React = __webpack_require__(2),
@@ -41981,42 +42008,6 @@
 	module.exports = RepeatCheckbox;
 
 /***/ },
-/* 517 */
-/***/ function(module, exports, __webpack_require__) {
-
-	React = __webpack_require__(2),
-	    Fluxxor = __webpack_require__(160),
-	    ReactBootstrap = __webpack_require__(263),
-	    FluxMixin = Fluxxor.FluxMixin(React);
-	
-	var IrregularCheckbox = React.createClass({displayName: "IrregularCheckbox",
-	    mixins: [FluxMixin],
-	  getInitialState: function () {
-	    return {
-	        checked: this.props.checked || false
-	     };
-	  },
-	  render: function () {
-	    return (
-	        React.createElement("label", null, 
-	            React.createElement("input", {type: "checkbox", 
-	              name: "irregular_checkbox", 
-	              checked: this.state.checked, 
-	              onClick: this.handleClick, 
-	              value: "irregular"}), 
-	            "allow irregular"
-	      )
-	    );
-	  },
-	  handleClick: function(e) {
-	      this.setState({checked: e.target.checked});
-	      this.getFlux().actions.setIrregular(e.target.checked);//tell store
-	  }
-	});
-	
-	module.exports = IrregularCheckbox;
-
-/***/ },
 /* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -42040,32 +42031,30 @@
 	    render: function () {
 	        return (
 	            React.createElement("div", null, 
-	                React.createElement(ReactBootstrap.Row, null, 
-	                    React.createElement(ReactBootstrap.Col, {md: 4}, 
+	
+	                 React.createElement(ReactBootstrap.Panel, {header: "Choose tenses (advanced)"}, 
+	               React.createElement(ReactBootstrap.Row, null, 
+	                    React.createElement(ReactBootstrap.Col, {md: 6}, 
 	                        React.createElement("label", null, 
 	                            React.createElement("input", {type: "checkbox", 
 	                                name: "indicative_checkbox", 
 	                                checked: this.state.indicativeChecked, 
 	                                onChange: this.handleIndicativeClick, 
 	                                value: "indicative_checkbox"}), 
-	                            "indicative"
+	                            "indicative (all)"
 	                        )
 	                    )
 	                ), 
-	                 React.createElement(ReactBootstrap.Panel, {header: "Choose tenses (advanced)"}, 
 	                React.createElement(ReactBootstrap.Row, null, 
 	                    React.createElement(ReactBootstrap.Col, {md: 4}, 
-	                        React.createElement("div", {class: "checkbox"}, 
-	
+	                        React.createElement("label", null, 
 	                        React.createElement("input", {type: "checkbox", 
 	                                name: "present_checkbox", 
 	                                checked: this.state.presentChecked, 
 	                                onChange: this.handlePresentClick, 
 	                                value: "present_checkbox"}), 
-	                        React.createElement("label", null, 
 	                            "present"
 	                        )
-	                            )
 	                    )
 	                ), 
 	                React.createElement(ReactBootstrap.Row, null, 
@@ -42106,7 +42095,6 @@
 	                )
 	                     )
 	            )
-	
 	        );
 	    },
 	    handleIndicativeClick: function (e) {
@@ -42173,7 +42161,8 @@
 	                    ), 
 	                    React.createElement(ReactBootstrap.Panel, {header: "Story", eventKey: "3"}, 
 	                         React.createElement("p", null, "This tool is built around my personal learning style so it might not be ideal for everyone. I quit my software job and started to travel the world to learn about food. I started in Peru and quickly realized how important expanding my language skill was to understanding the rich stories people were telling me."), 
-	                        React.createElement("p", null, "In the second part of my trip, I found myself on the other side of the world in Thailand where I couldn't find any Spanish classes to continue my studies. I often tackle challenges like learning a language by trying to identify the hardest part and addressing that head-on. I realized that the number of tenses in Spanish can be intimidating, made more complex by the unfamiliar concepts like the subjunctive tense."), 
+	                        React.createElement("p", null, "In the second part of my trip, I found myself on the other side of the world in Thailand where I couldn't find any Spanish classes to continue my studies."), 
+	                        React.createElement("p", null, "I often tackle challenges like learning a language by trying to identify the hardest part and addressing that head-on. I realized that the number of tenses in Spanish can be intimidating, made more complex by the unfamiliar concepts like the subjunctive tense so I figured this was a good place to start."), 
 	                        React.createElement("p", null, "I set out to write this app and wrote the first version in two weeks while bouncing around various co-working spaces in Chiang Mai.")
 	                    ), 
 	                    React.createElement(ReactBootstrap.Panel, {header: "Code", eventKey: "4"}, 
@@ -42201,7 +42190,7 @@
 	    initialize: function (options) {
 	        this.numberFails = 0;
 	        this.quiz = [];
-	        this.currentQuestion = {"text": "Get started by clicking 'next'!"}; //display
+	        this.currentQuestion = {"text": "Get started by clicking 'next question'!"}; //display
 	        this.questions = [];
 	        this.loading = false;
 	        this.showAnswer = false;

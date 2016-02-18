@@ -18,19 +18,20 @@ var TensesCheckgroup = React.createClass({
     render: function () {
         return (
             <div>
-                <ReactBootstrap.Row>
-                    <ReactBootstrap.Col md={4}>
+
+                 <ReactBootstrap.Panel header="Choose tenses (advanced)">
+               <ReactBootstrap.Row>
+                    <ReactBootstrap.Col md={6}>
                         <label>
                             <input type="checkbox"
                                 name="indicative_checkbox"
                                 checked={this.state.indicativeChecked}
                                 onChange={this.handleIndicativeClick}
                                 value="indicative_checkbox" />
-                            indicative
+                            indicative (all)
                         </label>
                     </ReactBootstrap.Col>
                 </ReactBootstrap.Row>
-                 <ReactBootstrap.Panel header="Choose tenses (advanced)">
                 <ReactBootstrap.Row>
                     <ReactBootstrap.Col md={4}>
                         <label>
