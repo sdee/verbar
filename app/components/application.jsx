@@ -4,7 +4,8 @@ var React = require("react"),
     FluxMixin = Fluxxor.FluxMixin(React),
     Constants = require("../constants"),
     ReactBootstrap = require("react-bootstrap"),
-    StoreWatchMixin = Fluxxor.StoreWatchMixin;
+    StoreWatchMixin = Fluxxor.StoreWatchMixin,
+    ReactHotkeys = require('react-hotkeys');
 
 var MsgCard = require("./messageCard.jsx"),
     VerbCard = require("./verbCard.jsx"),
@@ -22,6 +23,7 @@ var Quiz = React.createClass({
         var flux = this.getFlux();
         var QuizStore = this.getFlux().store("QuizStore");
         var UserInputStore = this.getFlux().store("UserInputStore");
+        var FilterStore = this.getFlux().store("FilterStore");
         return {
             loading: QuizStore.loading,
             error: QuizStore.error,
@@ -30,7 +32,14 @@ var Quiz = React.createClass({
             currentQuestion: QuizStore.currentQuestion,
             hasSubmittedAnswer: UserInputStore.hasSubmittedAnswer,
             correct: UserInputStore.correct,
-            submittedAnswer: UserInputStore.submittedAnswer
+            submittedAnswer: UserInputStore.submittedAnswer,
+            enableIrregular: FilterStore.enableIrregular,
+            useVosotros: FilterStore.useVosotros,
+            allowPresent: FilterStore.allowPresent,
+            allowPreterite: FilterStore.allowPreterite,
+            allowImperfect: FilterStore.allowImperfect,
+            allowConditional: FilterStore.allowConditional,
+            allowFuture: FilterStore.allowFuture
         };
     },
     componentDidMount: function () {
@@ -40,6 +49,20 @@ var Quiz = React.createClass({
         var questions = this.state.quiz;
         var curr = this.state.currentQuestion;
         var card;
+        const keyMap = {
+            'left': 'left',
+            'right': 'right'
+        };
+        const handlers = {
+            'right': (event) => this.getFlux().actions.nextQuestion(this.state.enableIrregular,
+            this.state.useVosotros,
+            this.state.allowPresent,
+            this.state.allowPreterite,
+            this.state.allowImperfect,
+            this.state.allowConditional,
+            this.state.allowFuture),
+            'up': (event) => this.getFlux().actions.showAnswer()
+        };
         if (this.state.hasSubmittedAnswer && curr.infinitive) {
             card = <FeedbackCard correct={this.state.correct} correctAnswer={curr.answer} submittedAnswer={this.state.submittedAnswer}/>
         }
@@ -59,7 +82,9 @@ var Quiz = React.createClass({
                         <ReactBootstrap.Row className="show-grid">
                             <ReactBootstrap.Col md={7}>
                                 <ReactBootstrap.Row className="show-grid">
+                            <ReactHotkeys.HotKeys keyMap={keyMap} handlers={handlers}>
                             {card}
+                            </ReactHotkeys.HotKeys>
                                 </ReactBootstrap.Row>
                                 <ReactBootstrap.Row className="card" className="ctrl">
                                     <br></br>
@@ -67,7 +92,9 @@ var Quiz = React.createClass({
                                 </ReactBootstrap.Row>
                                 <ReactBootstrap.Row className="card" className="ctrl">
                                     <br></br>
-                                    <UserAnswer answer={this.state.currentQuestion.answer}/>
+                                    <ReactHotkeys.HotKeys keyMap={keyMap} handlers={handlers}>
+                                        <UserAnswer answer={this.state.currentQuestion.answer}/>
+                                    </ReactHotkeys.HotKeys>
                                 </ReactBootstrap.Row>
                             </ReactBootstrap.Col>
                             <ReactBootstrap.Col md={5}>
